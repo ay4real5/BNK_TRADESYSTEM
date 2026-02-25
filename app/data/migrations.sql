@@ -134,3 +134,16 @@ CREATE TABLE IF NOT EXISTS secrets (
     value       TEXT NOT NULL,
     updated_at  TEXT NOT NULL
 );
+
+-- Execution event log — auditable record of every significant execution action
+CREATE TABLE IF NOT EXISTS execution_events (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts         TEXT    NOT NULL,
+    event_type TEXT    NOT NULL,  -- order_placed|order_rejected|position_closed|sync_error|kill_switch|pause|resume|mode_change
+    trade_id   INTEGER,           -- linked trade, if applicable
+    symbol     TEXT,
+    detail     TEXT               -- JSON or human-readable context
+);
+
+CREATE INDEX IF NOT EXISTS idx_exec_events_ts   ON execution_events(ts);
+CREATE INDEX IF NOT EXISTS idx_exec_events_type ON execution_events(event_type);

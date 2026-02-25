@@ -653,3 +653,59 @@ async def get_candles(
         rows = await cur.fetchall()
     return [dict(r) for r in reversed(rows)]
 
+
+# ---------------------------------------------------------------------------
+# Execution event log
+# ---------------------------------------------------------------------------
+
+async def log_execution_event(
+    event_type: str,
+    *,
+    trade_id: int | None = None,
+    symbol: str | None = None,
+    detail: str | None = None,
+    db_path: str = DB_PATH,
+) -> None:
+    """
+    Write a single row to execution_events.
+
+    event_type examples:
+      order_placed, order_rejected, position_closed,
+      sync_error, kill_switch, pause, resume, mode_change
+    """
+    ts = datetime.utcnow().isoformat(timespec="seconds")
+    async with aiosqlite.connect(db_path) as db:
+        await db.execute(
+            "INSERT INTO execution_events (ts, event_type, trade_id, symbol, detail) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (ts, event_type, trade_id, symbol, detail),
+        )
+        await db.commit()
+
+
+async def get_execution_events(
+    limit: int = 50,
+    event_type: str | None = None,
+    db_path: str = DB_PATH,
+) -> list[dict]:
+    """Return the most recent execution events (newest first)."""
+    if event_type:
+        query = (
+            "SELECT id, ts, event_type, trade_id, symbol, detail "
+            "FROM execution_events WHERE event_type = ? ORDER BY id DESC LIMIT ?"
+        )
+        params: tuple = (event_type, limit)
+    else:
+        query = (
+            "SELECT id, ts, event_type, trade_id, symbol, detail "
+            "FROM execution_events ORDER BY id DESC LIMIT ?"
+        )
+        params = (limit,)
+
+    async with aiosqlite.connect(db_path) as db:
+        db.row_factory = aiosqlite.Row
+        cur = await db.execute(query, params)
+        rows = await cur.fetchall()
+    return [dict(r) for r in rows]
+
+

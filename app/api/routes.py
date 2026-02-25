@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import RedirectResponse
 from loguru import logger
 
@@ -426,8 +426,11 @@ async def get_mode() -> dict:
 @router.post("/mode/{mode_name}")
 async def set_mode(mode_name: str) -> dict:
     from ..domain.enums import Mode
+    from ..data.storage import log_execution_event
     try:
+        prev = settings.mode.value
         settings.mode = Mode(mode_name.lower())
+        await log_execution_event("mode_change", detail=f"{prev} → {settings.mode.value}")
         return {"mode": settings.mode.value, "success": True}
     except ValueError:
         return {"error": f"Invalid mode: {mode_name}", "success": False}
@@ -502,11 +505,6 @@ async def disable_auto_execute() -> dict:
         sched.remove_job("demo_execution")
     logger.warning("🛑 Auto-execution DISABLED via API")
     return {"success": True, "auto_execute_demo": False}
-
-
-
-async def health() -> dict:
-    return {"status": "ok", "mode": settings.mode.value}
 
 
 @router.get("/data-source")
@@ -999,6 +997,439 @@ async def sync_positions() -> dict:
         import traceback
         logger.error("sync-positions route unhandled exception:\n{}", traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Position sync failed: {str(e)}")
+
+
+# ---------------------------------------------------------------------------
+# Broker-truth reconciliation endpoints
+# ---------------------------------------------------------------------------
+
+@router.get("/execution/broker-positions")
+async def broker_positions() -> dict:
+    """
+    Pull the live open-position list directly from the cTrader broker.
+
+    Returns the raw reconcile snapshot so operators can verify what the broker
+    believes is open, independent of our local DB state.
+    Only available in demo/live mode.
+    """
+    from ..config import settings
+    from ..domain.enums import Mode
+    from ..execution.ctrader_execution import ctrader_executor
+    from ..integration.ctrader_trading import get_trading_connection
+    from ..services.ctrader_oauth import oauth_service
+    import ctrader_open_api.messages.OpenApiMessages_pb2 as _m
+
+    if settings.mode not in (Mode.DEMO, Mode.LIVE):
+        raise HTTPException(status_code=400, detail="Only available in demo/live mode")
+
+    try:
+        token = await oauth_service.get_valid_access_token()
+        account_id = settings.ctrader_account_id
+        conn = await get_trading_connection()
+        await conn.authenticate_account(account_id, token)
+
+        req = _m.ProtoOAReconcileReq()
+        req.ctidTraderAccountId = int(account_id)
+        rt, rp = await conn.send_and_wait(req.payloadType, req.SerializeToString(), timeout=10.0)
+
+        if rt != 2125:
+            err_res = _m.ProtoOAErrorRes()
+            try:
+                err_res.ParseFromString(rp)
+                detail = f"{err_res.errorCode}: {err_res.description}"
+            except Exception:
+                detail = f"unexpected payloadType={rt}"
+            raise HTTPException(status_code=502, detail=f"Broker error — {detail}")
+
+        res = _m.ProtoOAReconcileRes()
+        res.ParseFromString(rp)
+
+        positions = []
+        for p in res.position:
+            positions.append({
+                "position_id": str(p.positionId),
+                "symbol_id": p.tradeData.symbolId,
+                "side": "buy" if p.tradeData.tradeSide == 1 else "sell",
+                "volume": p.tradeData.volume / 100,        # cents → lots*100, /100 → lots
+                "entry_price": p.price / 100000.0 if p.price else None,
+                "open_timestamp_ms": p.tradeData.openTimestamp,
+                "unrealised_swap": p.swap / 100.0,
+                "commission": p.commission / 100.0,
+            })
+
+        return {
+            "account_id": account_id,
+            "broker_position_count": len(positions),
+            "positions": positions,
+        }
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@router.get("/execution/db-positions")
+async def db_positions() -> dict:
+    """
+    Return all open positions from the local database.
+
+    These are trades with outcome='open' regardless of mode.
+    """
+    open_trades = await storage.get_open_trades()
+    return {
+        "db_position_count": len(open_trades),
+        "positions": [
+            {
+                "id": t.id,
+                "symbol": t.symbol.value,
+                "side": t.side.value,
+                "mode": t.mode.value,
+                "entry": t.entry,
+                "sl": t.sl,
+                "tp": t.tp,
+                "size": t.size,
+                "pnl": t.pnl,
+                "broker_position_id": t.broker_position_id,
+                "ts_open": t.ts_open.isoformat() if t.ts_open else None,
+            }
+            for t in open_trades
+        ],
+    }
+
+
+@router.get("/execution/reconcile-report")
+async def reconcile_report() -> dict:
+    """
+    Diff broker open positions against local DB open positions.
+
+    Returns three buckets:
+    - matched:   broker position ID exists in both broker and DB
+    - broker_only: broker has a position our DB doesn't know about (ghost exposure)
+    - db_only:   DB has an open trade with no matching broker position (orphan)
+
+    Only available in demo/live mode.
+    """
+    from ..config import settings
+    from ..domain.enums import Mode
+    from ..integration.ctrader_trading import get_trading_connection
+    from ..services.ctrader_oauth import oauth_service
+    import ctrader_open_api.messages.OpenApiMessages_pb2 as _m
+
+    if settings.mode not in (Mode.DEMO, Mode.LIVE):
+        raise HTTPException(status_code=400, detail="Only available in demo/live mode")
+
+    try:
+        # --- Broker snapshot ---
+        token = await oauth_service.get_valid_access_token()
+        account_id = settings.ctrader_account_id
+        conn = await get_trading_connection()
+        await conn.authenticate_account(account_id, token)
+
+        req = _m.ProtoOAReconcileReq()
+        req.ctidTraderAccountId = int(account_id)
+        rt, rp = await conn.send_and_wait(req.payloadType, req.SerializeToString(), timeout=10.0)
+
+        if rt != 2125:
+            err_res = _m.ProtoOAErrorRes()
+            try:
+                err_res.ParseFromString(rp)
+                detail = f"{err_res.errorCode}: {err_res.description}"
+            except Exception:
+                detail = f"unexpected payloadType={rt}"
+            raise HTTPException(status_code=502, detail=f"Broker error — {detail}")
+
+        res = _m.ProtoOAReconcileRes()
+        res.ParseFromString(rp)
+        broker_ids: dict[str, dict] = {
+            str(p.positionId): {
+                "symbol_id": p.tradeData.symbolId,
+                "side": "buy" if p.tradeData.tradeSide == 1 else "sell",
+                "volume_lots": p.tradeData.volume / 10_000_000,  # cTrader: 1 lot = 10_000_000 units
+                "entry_price": p.price / 100000.0 if p.price else None,
+            }
+            for p in res.position
+        }
+
+        # --- DB snapshot (demo/live only) ---
+        open_trades = await storage.get_open_trades()
+        live_trades = [t for t in open_trades if t.mode in (Mode.DEMO, Mode.LIVE)]
+
+        db_by_remote: dict[str, dict] = {}
+        db_no_remote: list[dict] = []
+        for t in live_trades:
+            if t.broker_position_id:
+                db_by_remote[str(t.broker_position_id)] = {
+                    "db_trade_id": t.id,
+                    "symbol": t.symbol.value,
+                    "side": t.side.value,
+                    "size": t.size,
+                    "entry": t.entry,
+                }
+            else:
+                db_no_remote.append({
+                    "db_trade_id": t.id,
+                    "symbol": t.symbol.value,
+                    "side": t.side.value,
+                    "entry": t.entry,
+                })
+
+        # --- Diff ---
+        matched = []
+        broker_only = []
+        db_only = list(db_no_remote)  # DB rows with no remote ID are definitionally orphans
+
+        all_ids = set(broker_ids) | set(db_by_remote)
+        for pid in all_ids:
+            in_broker = pid in broker_ids
+            in_db     = pid in db_by_remote
+            if in_broker and in_db:
+                matched.append({"position_id": pid, "broker": broker_ids[pid], "db": db_by_remote[pid]})
+            elif in_broker:
+                broker_only.append({"position_id": pid, **broker_ids[pid]})
+            else:
+                db_only.append({"position_id": pid, **db_by_remote[pid]})
+
+        healthy = (len(broker_only) == 0 and len(db_only) == 0)
+        return {
+            "healthy": healthy,
+            "matched_count": len(matched),
+            "broker_only_count": len(broker_only),   # ghost exposure — dangerous
+            "db_only_count": len(db_only),            # orphaned local trades
+            "matched": matched,
+            "broker_only": broker_only,
+            "db_only": db_only,
+            "note": (
+                "healthy=true means broker and DB are in full agreement. "
+                "broker_only entries represent ghost exposure (broker has open risk we don't track). "
+                "db_only entries are orphaned local records (no matching broker position)."
+            ),
+        }
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+# ---------------------------------------------------------------------------
+# Control plane endpoints
+# ---------------------------------------------------------------------------
+
+@router.post("/control/kill-switch")
+async def kill_switch(request: Request) -> dict:
+    """
+    Hard-stop all trading immediately.
+
+    POST body: {"enable": true}   — activate kill switch (blocks all new orders)
+    POST body: {"enable": false}  — deactivate kill switch
+
+    Kill switch state persists across restarts (stored in DB).
+    It does NOT cancel existing open broker positions — use broker panel for that.
+    """
+    from ..data.storage import load_risk_state, save_risk_state
+    from ..data.storage import log_execution_event
+
+    body = await request.json()
+    enable: bool = bool(body.get("enable", True))
+
+    state = await load_risk_state()
+    prev = state.kill_switch
+    state.kill_switch = enable
+    await save_risk_state(state)
+
+    action = "ACTIVATED" if enable else "DEACTIVATED"
+    logger.warning("\u26a0\ufe0f  kill-switch {}", action)
+    await log_execution_event(
+        "kill_switch",
+        detail=f"kill_switch {'enabled' if enable else 'disabled'}; prev={prev}",
+    )
+    return {
+        "success": True,
+        "kill_switch": enable,
+        "message": f"Kill switch {action}. All new orders are {'blocked' if enable else 'permitted'}.",
+    }
+
+
+@router.post("/control/pause")
+async def pause_trading(request: Request) -> dict:
+    """
+    Pause all new order placement for a specified number of minutes.
+
+    POST body: {"minutes": 30}
+
+    Use this for news event blackouts or manual intervention windows.
+    Does NOT affect kill switch or daily loss counters.
+    """
+    from datetime import datetime, timedelta
+    from ..data.storage import load_risk_state, save_risk_state
+    from ..data.storage import log_execution_event
+    from ..domain.enums import LockReason
+
+    body = await request.json()
+    minutes: int = int(body.get("minutes", 30))
+    if minutes < 1 or minutes > 1440:
+        raise HTTPException(status_code=422, detail="minutes must be between 1 and 1440")
+
+    state = await load_risk_state()
+    resume_at = datetime.utcnow() + timedelta(minutes=minutes)
+    state.paused_until_ts = resume_at
+    state.lock_reason = LockReason.PAUSED
+    await save_risk_state(state)
+
+    logger.warning("\u23f8\ufe0f  trading paused for {} min (until {})", minutes, resume_at.isoformat())
+    await log_execution_event(
+        "pause",
+        detail=f"paused for {minutes}m, resumes at {resume_at.isoformat()}",
+    )
+    return {
+        "success": True,
+        "paused_until": resume_at.isoformat(),
+        "minutes": minutes,
+        "message": f"Trading paused for {minutes} minutes. Resumes at {resume_at.isoformat()} UTC.",
+    }
+
+
+@router.post("/control/resume")
+async def resume_trading() -> dict:
+    """
+    Resume trading by clearing manual pause and optionally the kill switch.
+
+    This ONLY clears:
+    - paused_until_ts (manual pause)
+    - kill_switch
+
+    It does NOT reset daily loss counters or cooldown locks — use /risk/reset-today for that.
+    """
+    from ..data.storage import load_risk_state, save_risk_state
+    from ..data.storage import log_execution_event
+
+    state = await load_risk_state()
+    prev = {
+        "kill_switch": state.kill_switch,
+        "paused_until_ts": state.paused_until_ts.isoformat() if state.paused_until_ts else None,
+    }
+    state.kill_switch = False
+    state.paused_until_ts = None
+    # Only clear lock_reason if it was PAUSED
+    from ..domain.enums import LockReason
+    if state.lock_reason == LockReason.PAUSED:
+        state.lock_reason = None
+    await save_risk_state(state)
+
+    logger.info("\u25b6\ufe0f  trading resumed (kill_switch cleared, pause cleared)")
+    await log_execution_event("resume", detail=f"resumed; prev={prev}")
+    return {
+        "success": True,
+        "message": "Trading resumed. Kill switch cleared, manual pause cleared.",
+        "previous": prev,
+    }
+
+
+@router.get("/risk/status")
+async def risk_status() -> dict:
+    """
+    Detailed risk status with human-readable time-remaining for each lock.
+
+    Returns a single comprehensive view of all risk gates:
+    - kill_switch
+    - paused_until_ts
+    - locked_until_ts (cooldown)
+    - max_trades_per_day progress
+    - max_losses_per_day progress
+    - daily_dd_cap progress
+    - expansion mode status
+    """
+    from datetime import datetime
+    from ..config import settings
+    from ..services import locks
+    from ..data.storage import load_account_state, load_expansion_state
+
+    state = await locks.get_state()
+    account = await load_account_state()
+    expansion = await load_expansion_state()
+
+    now = datetime.utcnow()
+
+    def _remaining_min(ts) -> int | None:
+        if ts and now < ts:
+            return max(0, int((ts - now).total_seconds() // 60))
+        return None
+
+    # Which gates are currently blocking?
+    blocking: list[str] = []
+    if state.kill_switch:
+        blocking.append("kill_switch")
+    if state.paused_until_ts and now < state.paused_until_ts:
+        blocking.append("paused")
+    if state.locked_until_ts and now < state.locked_until_ts:
+        reason = state.lock_reason.value if state.lock_reason else "cooldown"
+        blocking.append(reason)
+    if state.trades_count >= settings.max_trades_per_day:
+        blocking.append("max_trades")
+    if state.losses_count >= settings.max_losses_per_day:
+        blocking.append("max_losses")
+    if state.drawdown_pct >= settings.daily_dd_cap_pct:
+        blocking.append("daily_dd_cap")
+
+    return {
+        "can_trade": len(blocking) == 0,
+        "blocking_gates": blocking,
+        "date": state.date,
+        "kill_switch": state.kill_switch,
+        "pause": {
+            "active": bool(state.paused_until_ts and now < state.paused_until_ts),
+            "resumes_at": state.paused_until_ts.isoformat() if state.paused_until_ts else None,
+            "remaining_min": _remaining_min(state.paused_until_ts),
+        },
+        "cooldown": {
+            "active": bool(state.locked_until_ts and now < state.locked_until_ts),
+            "expires_at": state.locked_until_ts.isoformat() if state.locked_until_ts else None,
+            "remaining_min": _remaining_min(state.locked_until_ts),
+            "reason": state.lock_reason.value if state.lock_reason else None,
+        },
+        "daily_counters": {
+            "trades": {"used": state.trades_count, "max": settings.max_trades_per_day},
+            "losses": {"used": state.losses_count, "max": settings.max_losses_per_day},
+            "pnl": round(state.pnl, 2),
+            "drawdown_pct": round(state.drawdown_pct, 3),
+            "dd_cap_pct": settings.daily_dd_cap_pct,
+        },
+        "account": {
+            "equity": round(account.equity, 2),
+            "balance": round(account.balance, 2),
+            "peak_equity": round(account.peak_equity, 2),
+            "equity_at_day_start": round(account.equity_at_day_start, 2),
+        },
+        "expansion": {
+            "active": expansion.active,
+            "trades_in_window": expansion.trades_in_window,
+            "consecutive_losses": expansion.consecutive_losses,
+        },
+    }
+
+
+@router.get("/execution/events")
+async def execution_events(
+    limit: int = 50,
+    event_type: str | None = None,
+) -> dict:
+    """
+    Return the most recent execution events for operational monitoring.
+
+    Covers: order_placed, order_rejected, position_closed, sync_error,
+            kill_switch, pause, resume, mode_change
+
+    Optional ?event_type=sync_error to filter by type.
+    """
+    from ..data.storage import get_execution_events
+
+    limit = min(limit, 200)
+    events = await get_execution_events(limit=limit, event_type=event_type)
+    return {
+        "count": len(events),
+        "limit": limit,
+        "filter": event_type,
+        "events": events,
+    }
 
 
 # ---------------------------------------------------------------------------

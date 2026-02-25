@@ -201,6 +201,24 @@ class CTraderExecutionService(Executor):
             position_id,
         )
 
+        # Audit log
+        import json as _json
+        await storage.log_execution_event(
+            "order_placed",
+            trade_id=trade_id,
+            symbol=idea.symbol.value,
+            detail=_json.dumps({
+                "side": idea.side.value,
+                "entry": fill_price,
+                "sl": idea.sl,
+                "tp": idea.tp,
+                "size": position_size,
+                "slippage": _entry_slippage,
+                "latency_ms": _exec_latency_ms,
+                "remote_id": position_id,
+            }),
+        )
+
         trade.id = trade_id
         return trade
 
@@ -755,6 +773,19 @@ class CTraderExecutionService(Executor):
                         )
                         closed_trades.append(trade)
                         closed += 1
+                        # Audit log
+                        import json as _json
+                        await storage.log_execution_event(
+                            "position_closed",
+                            trade_id=trade.id,
+                            symbol=trade.symbol.value,
+                            detail=_json.dumps({
+                                "outcome": trade.outcome.value,
+                                "pnl": final_pnl,
+                                "exit_price": exit_px,
+                                "remote_id": remote_id,
+                            }),
+                        )
 
                 except Exception as exc:
                     tb = traceback.format_exc()
@@ -762,6 +793,12 @@ class CTraderExecutionService(Executor):
                     logger.error("sync error: {}\n{}", detail, tb)
                     error_details.append(detail)
                     errors += 1
+                    await storage.log_execution_event(
+                        "sync_error",
+                        trade_id=trade.id,
+                        symbol=trade.symbol.value if hasattr(trade, 'symbol') else None,
+                        detail=detail[:500],
+                    )
 
             logger.info(
                 "sync_positions complete: synced={} closed={} errors={}",
@@ -780,6 +817,10 @@ class CTraderExecutionService(Executor):
             detail = f"sync_positions outer: {type(exc).__name__}: {exc}"
             logger.error("{}\n{}", detail, tb)
             error_details.append(detail)
+            try:
+                await storage.log_execution_event("sync_error", detail=detail[:500])
+            except Exception:
+                pass
             return {
                 "synced": 0,
                 "closed": 0,
