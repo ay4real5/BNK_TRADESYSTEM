@@ -1,0 +1,12 @@
+================================================================================
+cTrader OAuth Token Exchange Debug
+================================================================================
+
+token_url: https://openapi.ctrader.com/apps/token
+client_id: 16911_Qd22bDrN2t8FobqRatGU3n3g...
+redirect_uri: https://psychic-system-v4j7gw7qg7vfwjq7-8000.app.github.dev/api/v1/auth/ctrader/callback
+grant_type: authorization_code
+code_length: 86
+response_status: 200
+response_content_type: application/json
+response_body: {...tokens received, keys: ['accessToken', 'tokenType', 'expiresIn', 'refreshToken', 'errorCode', 'access_token', 'refresh_token', 'expires_in']}

@@ -88,6 +88,15 @@ class TradeResult(BaseModel):
     mode: Mode = Mode.PAPER
     max_adverse_excursion: float = 0.0  # worst drawdown reached
 
+    # ── Trade Journal fields (real broker only) ─────────────────────────────
+    broker_position_id: str | None = None    # cTrader positionId
+    broker_order_id: str | None = None       # cTrader orderId
+    execution_latency_ms: int | None = None  # ms from order send → fill confirm
+    entry_slippage: float | None = None      # fill_price − signal_entry (+ = worse)
+    spread_at_entry: float | None = None     # ask − bid at time of execution
+    exit_price: float | None = None          # actual close price from broker
+    exit_slippage: float | None = None       # exit vs TP/SL price (+ = worse)
+
 
 # ---------------------------------------------------------------------------
 # Risk State
@@ -153,3 +162,70 @@ class Setup(BaseModel):
     reasons: list[str] = Field(default_factory=list)
     passed_filters: bool = True
     filter_failures: list[str] = Field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Expansion State  (Mode C)
+# ---------------------------------------------------------------------------
+
+class ExpansionState(BaseModel):
+    """
+    Tracks the Expansion Mode window for Mode C.
+
+    Defensive mode is the default.  Expansion mode is activated only when
+    statistical edge is proven and is automatically revoked when conditions
+    deteriorate.
+    """
+    active: bool = False
+    start_equity: float = 0.0           # equity when expansion was activated
+    trades_in_window: int = 0           # trades taken since activation
+    consecutive_losses: int = 0         # consecutive losses *within* this window
+    activated_at: datetime | None = None
+    exit_reason: str | None = None      # reason the last expansion window closed
+    atr_spike_active: bool = False      # set True by market data layer on volatility event
+
+
+# ---------------------------------------------------------------------------
+# Account State
+# ---------------------------------------------------------------------------
+
+class AccountState(BaseModel):
+    """
+    Persistent account snapshot updated after every closed trade.
+
+    - ``balance``            : current cash balance (starting_balance ± all closed PnL)
+    - ``equity``             : current equity; for the demo engine this equals balance
+                               (no open positions); a live engine would add unrealised PnL
+    - ``peak_equity``        : highest equity ever reached (used for total drawdown)
+    - ``equity_at_day_start``: equity recorded at the open of the current trading day
+                               (used for the intraday drawdown hard stop)
+    - ``drawdown_pct``       : (peak_equity - equity) / peak_equity * 100
+    - ``total_pnl``          : cumulative PnL since account inception
+    - ``consecutive_losses`` : current streak of consecutive losing trades; resets on any win
+    """
+    starting_balance: float = 10000.0
+    balance: float = 10000.0
+    equity: float = 10000.0
+    peak_equity: float = 10000.0
+    equity_at_day_start: float = 10000.0
+    total_pnl: float = 0.0
+    drawdown_pct: float = 0.0
+    consecutive_losses: int = 0
+    last_updated: datetime | None = None
+
+    def apply_pnl(self, pnl: float) -> "AccountState":
+        """Return a *new* AccountState with the PnL applied (immutable update)."""
+        new_balance = round(self.balance + pnl, 2)
+        new_equity = new_balance          # demo: equity == balance
+        new_peak = max(self.peak_equity, new_equity)
+        dd = round((new_peak - new_equity) / new_peak * 100, 4) if new_peak > 0 else 0.0
+        new_consecutive = 0 if pnl >= 0 else self.consecutive_losses + 1
+        return self.model_copy(update={
+            "balance": new_balance,
+            "equity": new_equity,
+            "peak_equity": new_peak,
+            "total_pnl": round(self.total_pnl + pnl, 2),
+            "drawdown_pct": dd,
+            "consecutive_losses": new_consecutive,
+            "last_updated": datetime.utcnow(),
+        })

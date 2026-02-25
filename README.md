@@ -215,6 +215,43 @@ When running, the FastAPI server is available at `http://localhost:8000`.
 
 ---
 
+## Demo Signal Engine
+
+The demo engine generates synthetic trading signals every 15 seconds and stores them in the database. It is completely self-contained — no live market data, cTrader, or Telegram required.
+
+### Enabling the demo engine
+
+Set the environment variable before starting the server:
+
+```bash
+export BNK_DEMO_ENGINE=1
+```
+
+Or prefix it inline:
+
+```bash
+BNK_DEMO_ENGINE=1 uvicorn app.api.server:create_api_app --factory --reload --host 0.0.0.0 --port 8000
+```
+
+### Viewing generated signals
+
+Once the server is running, signals accumulate every 15 seconds and are served by the existing endpoint:
+
+```
+GET http://localhost:8000/api/v1/signals/recent?limit=20
+```
+
+### How it works
+
+- Controlled by `BNK_DEMO_ENGINE` env var — engine is **off by default**
+- On FastAPI startup, if `BNK_DEMO_ENGINE=1`, a background `asyncio.Task` is started
+- The task loops indefinitely: generate → save → sleep 15 s
+- On FastAPI shutdown, the task is cancelled and awaited cleanly
+- Signals are stored as normal `TradeIdea` rows in SQLite, mode `paper`
+- Engine code lives in `app/services/demo_engine.py`
+
+---
+
 ## Development
 
 ```bash

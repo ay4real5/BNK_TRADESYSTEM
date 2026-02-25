@@ -1,0 +1,5063 @@
+{
+  "meta": {
+    "n_sims": 500,
+    "sim_days": 252,
+    "starting_balance": 10000.0,
+    "base_seed": 0
+  },
+  "equity_distribution": {
+    "min": 8992.5,
+    "p5": 76411.85,
+    "p10": 95455.6,
+    "p25": 125741.57,
+    "median": 171777.55,
+    "p75": 228685.78,
+    "p90": 287803.97,
+    "p95": 333656.69,
+    "max": 678192.84,
+    "pct_profitable": 99.4
+  },
+  "drawdown_distribution": {
+    "min": 2.882,
+    "p50": 6.108,
+    "p90": 9.0,
+    "p95": 10.007,
+    "p99": 10.198,
+    "max": 10.398
+  },
+  "locks": {
+    "pct_runs_hitting_daily_lock": 74.4,
+    "pct_runs_hitting_intraday_dd": 0.0,
+    "pct_runs_hitting_kill_switch": 5.8,
+    "avg_daily_lock_days_per_sim": 1.37,
+    "avg_intraday_dd_days_per_sim": 0.0
+  },
+  "kill_switch": {
+    "triggered_count": 29,
+    "avg_equity_at_kill": 49488.85,
+    "avg_pct_below_peak_at_kill": 10.1087
+  },
+  "expansion": {
+    "avg_activations_per_sim": 5.5,
+    "pct_sims_with_any_activation": 99.4,
+    "avg_pct_trades_in_expansion": 8.2,
+    "avg_pct_trades_in_defensive": 91.8,
+    "exit_reason_counts": {
+      "consecutive_losses": 1409,
+      "window_exhausted": 1249,
+      "atr_spike": 93
+    },
+    "exit_reason_pcts": {
+      "consecutive_losses": 51.2,
+      "window_exhausted": 45.4,
+      "atr_spike": 3.4
+    }
+  },
+  "trades": {
+    "avg_per_day": 3.98,
+    "p5_per_day": 3.84,
+    "p95_per_day": 4.12
+  },
+  "per_sim": [
+    {
+      "seed": 0,
+      "final_equity": 326413.5,
+      "max_dd_pct": 8.573,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 1,
+      "final_equity": 218700.92,
+      "max_dd_pct": 6.3819,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1025
+    },
+    {
+      "seed": 2,
+      "final_equity": 34513.47,
+      "max_dd_pct": 10.1624,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 568
+    },
+    {
+      "seed": 3,
+      "final_equity": 198193.81,
+      "max_dd_pct": 6.7528,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 978
+    },
+    {
+      "seed": 4,
+      "final_equity": 12756.43,
+      "max_dd_pct": 10.2952,
+      "kill_switch": true,
+      "expansion_activations": 1,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 158
+    },
+    {
+      "seed": 5,
+      "final_equity": 225641.52,
+      "max_dd_pct": 6.6485,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 957
+    },
+    {
+      "seed": 6,
+      "final_equity": 136156.28,
+      "max_dd_pct": 7.3543,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 981
+    },
+    {
+      "seed": 7,
+      "final_equity": 486912.85,
+      "max_dd_pct": 5.8635,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 8,
+      "final_equity": 253670.1,
+      "max_dd_pct": 3.2094,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 9,
+      "final_equity": 55692.85,
+      "max_dd_pct": 10.0152,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 464
+    },
+    {
+      "seed": 10,
+      "final_equity": 161936.15,
+      "max_dd_pct": 4.8128,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 11,
+      "final_equity": 142201.33,
+      "max_dd_pct": 5.0614,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 12,
+      "final_equity": 91225.46,
+      "max_dd_pct": 5.4686,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 13,
+      "final_equity": 190686.89,
+      "max_dd_pct": 6.8628,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1030
+    },
+    {
+      "seed": 14,
+      "final_equity": 221490.02,
+      "max_dd_pct": 4.6882,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 974
+    },
+    {
+      "seed": 15,
+      "final_equity": 148329.69,
+      "max_dd_pct": 7.1861,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1043
+    },
+    {
+      "seed": 16,
+      "final_equity": 106559.01,
+      "max_dd_pct": 5.8448,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 967
+    },
+    {
+      "seed": 17,
+      "final_equity": 171652.85,
+      "max_dd_pct": 6.1921,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 18,
+      "final_equity": 77995.5,
+      "max_dd_pct": 10.0159,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 652
+    },
+    {
+      "seed": 19,
+      "final_equity": 371849.42,
+      "max_dd_pct": 3.6837,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 978
+    },
+    {
+      "seed": 20,
+      "final_equity": 268959.16,
+      "max_dd_pct": 5.9769,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 21,
+      "final_equity": 234452.86,
+      "max_dd_pct": 3.8819,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 983
+    },
+    {
+      "seed": 22,
+      "final_equity": 214737.83,
+      "max_dd_pct": 5.7894,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 23,
+      "final_equity": 323996.06,
+      "max_dd_pct": 8.2517,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 978
+    },
+    {
+      "seed": 24,
+      "final_equity": 210545.78,
+      "max_dd_pct": 5.6204,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 25,
+      "final_equity": 133388.39,
+      "max_dd_pct": 5.8872,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 26,
+      "final_equity": 180885.7,
+      "max_dd_pct": 5.0332,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 27,
+      "final_equity": 171336.86,
+      "max_dd_pct": 4.7182,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 28,
+      "final_equity": 138818.63,
+      "max_dd_pct": 8.8467,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 29,
+      "final_equity": 157211.81,
+      "max_dd_pct": 6.7238,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 30,
+      "final_equity": 86439.94,
+      "max_dd_pct": 6.1952,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 979
+    },
+    {
+      "seed": 31,
+      "final_equity": 166717.23,
+      "max_dd_pct": 4.2307,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 967
+    },
+    {
+      "seed": 32,
+      "final_equity": 260612.86,
+      "max_dd_pct": 6.624,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 33,
+      "final_equity": 130405.75,
+      "max_dd_pct": 7.6377,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 34,
+      "final_equity": 141184.17,
+      "max_dd_pct": 7.9516,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 973
+    },
+    {
+      "seed": 35,
+      "final_equity": 202083.88,
+      "max_dd_pct": 5.3343,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 954
+    },
+    {
+      "seed": 36,
+      "final_equity": 163398.02,
+      "max_dd_pct": 6.2856,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 37,
+      "final_equity": 204014.66,
+      "max_dd_pct": 5.3288,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 957
+    },
+    {
+      "seed": 38,
+      "final_equity": 95519.44,
+      "max_dd_pct": 10.0938,
+      "kill_switch": true,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 909
+    },
+    {
+      "seed": 39,
+      "final_equity": 101132.22,
+      "max_dd_pct": 6.8242,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 40,
+      "final_equity": 218779.69,
+      "max_dd_pct": 6.4446,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 41,
+      "final_equity": 221504.14,
+      "max_dd_pct": 4.2688,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 42,
+      "final_equity": 212290.08,
+      "max_dd_pct": 7.1575,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 43,
+      "final_equity": 169918.98,
+      "max_dd_pct": 4.4253,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 44,
+      "final_equity": 118879.7,
+      "max_dd_pct": 4.8744,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 45,
+      "final_equity": 184907.14,
+      "max_dd_pct": 5.4363,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 46,
+      "final_equity": 199974.01,
+      "max_dd_pct": 8.6808,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 47,
+      "final_equity": 162764.98,
+      "max_dd_pct": 9.6631,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 48,
+      "final_equity": 79867.17,
+      "max_dd_pct": 7.0525,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 49,
+      "final_equity": 206951.36,
+      "max_dd_pct": 7.2208,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 50,
+      "final_equity": 201210.98,
+      "max_dd_pct": 5.3371,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 51,
+      "final_equity": 122487.31,
+      "max_dd_pct": 8.0888,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 965
+    },
+    {
+      "seed": 52,
+      "final_equity": 115677.71,
+      "max_dd_pct": 9.6092,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 53,
+      "final_equity": 171643.42,
+      "max_dd_pct": 6.3234,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1043
+    },
+    {
+      "seed": 54,
+      "final_equity": 153154.77,
+      "max_dd_pct": 7.9997,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 5,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 55,
+      "final_equity": 150997.38,
+      "max_dd_pct": 4.4801,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 56,
+      "final_equity": 247690.53,
+      "max_dd_pct": 4.9894,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 970
+    },
+    {
+      "seed": 57,
+      "final_equity": 229396.0,
+      "max_dd_pct": 4.2226,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 58,
+      "final_equity": 214836.73,
+      "max_dd_pct": 5.4667,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 59,
+      "final_equity": 265172.95,
+      "max_dd_pct": 5.9536,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 60,
+      "final_equity": 198186.02,
+      "max_dd_pct": 5.4631,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 61,
+      "final_equity": 20318.89,
+      "max_dd_pct": 10.0407,
+      "kill_switch": true,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 266
+    },
+    {
+      "seed": 62,
+      "final_equity": 172459.77,
+      "max_dd_pct": 6.8233,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 63,
+      "final_equity": 245370.47,
+      "max_dd_pct": 5.6168,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1008
+    },
+    {
+      "seed": 64,
+      "final_equity": 175028.16,
+      "max_dd_pct": 5.2368,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 65,
+      "final_equity": 117233.24,
+      "max_dd_pct": 7.2146,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 66,
+      "final_equity": 150189.68,
+      "max_dd_pct": 6.6266,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 67,
+      "final_equity": 206998.35,
+      "max_dd_pct": 8.9687,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 68,
+      "final_equity": 110865.2,
+      "max_dd_pct": 8.0425,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 971
+    },
+    {
+      "seed": 69,
+      "final_equity": 254582.44,
+      "max_dd_pct": 5.9079,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 70,
+      "final_equity": 273148.9,
+      "max_dd_pct": 6.4047,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1014
+    },
+    {
+      "seed": 71,
+      "final_equity": 144492.82,
+      "max_dd_pct": 5.6723,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 72,
+      "final_equity": 171902.26,
+      "max_dd_pct": 8.5614,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 73,
+      "final_equity": 337413.12,
+      "max_dd_pct": 4.8654,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1015
+    },
+    {
+      "seed": 74,
+      "final_equity": 181776.27,
+      "max_dd_pct": 6.1472,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 976
+    },
+    {
+      "seed": 75,
+      "final_equity": 225931.24,
+      "max_dd_pct": 3.9982,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 76,
+      "final_equity": 108114.01,
+      "max_dd_pct": 4.7034,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 77,
+      "final_equity": 132612.04,
+      "max_dd_pct": 6.8056,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 78,
+      "final_equity": 100443.67,
+      "max_dd_pct": 5.1647,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1030
+    },
+    {
+      "seed": 79,
+      "final_equity": 189283.9,
+      "max_dd_pct": 6.3053,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 80,
+      "final_equity": 240042.71,
+      "max_dd_pct": 4.0294,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 81,
+      "final_equity": 171420.21,
+      "max_dd_pct": 8.8144,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 82,
+      "final_equity": 326704.07,
+      "max_dd_pct": 6.8226,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 83,
+      "final_equity": 189202.76,
+      "max_dd_pct": 7.1193,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1024
+    },
+    {
+      "seed": 84,
+      "final_equity": 185567.8,
+      "max_dd_pct": 5.8448,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 85,
+      "final_equity": 160554.02,
+      "max_dd_pct": 5.1421,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 86,
+      "final_equity": 9095.14,
+      "max_dd_pct": 10.2141,
+      "kill_switch": true,
+      "expansion_activations": 0,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 57
+    },
+    {
+      "seed": 87,
+      "final_equity": 309937.08,
+      "max_dd_pct": 5.1837,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 88,
+      "final_equity": 151820.82,
+      "max_dd_pct": 8.2455,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 89,
+      "final_equity": 133215.65,
+      "max_dd_pct": 7.1022,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 90,
+      "final_equity": 142605.1,
+      "max_dd_pct": 4.4512,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 91,
+      "final_equity": 224282.94,
+      "max_dd_pct": 4.6021,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1043
+    },
+    {
+      "seed": 92,
+      "final_equity": 234420.37,
+      "max_dd_pct": 7.2366,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 93,
+      "final_equity": 116133.45,
+      "max_dd_pct": 5.405,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 94,
+      "final_equity": 205767.44,
+      "max_dd_pct": 5.8053,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 95,
+      "final_equity": 248780.41,
+      "max_dd_pct": 5.5018,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 96,
+      "final_equity": 175999.51,
+      "max_dd_pct": 8.5453,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 97,
+      "final_equity": 292999.4,
+      "max_dd_pct": 6.8064,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1008
+    },
+    {
+      "seed": 98,
+      "final_equity": 119836.59,
+      "max_dd_pct": 7.6784,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 99,
+      "final_equity": 157408.35,
+      "max_dd_pct": 5.3015,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 985
+    },
+    {
+      "seed": 100,
+      "final_equity": 121385.15,
+      "max_dd_pct": 7.8191,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 101,
+      "final_equity": 201570.86,
+      "max_dd_pct": 4.8459,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1030
+    },
+    {
+      "seed": 102,
+      "final_equity": 101024.12,
+      "max_dd_pct": 7.1031,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 974
+    },
+    {
+      "seed": 103,
+      "final_equity": 165609.45,
+      "max_dd_pct": 7.9249,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 104,
+      "final_equity": 678192.84,
+      "max_dd_pct": 3.791,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1027
+    },
+    {
+      "seed": 105,
+      "final_equity": 20074.42,
+      "max_dd_pct": 10.1914,
+      "kill_switch": true,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 338
+    },
+    {
+      "seed": 106,
+      "final_equity": 125106.66,
+      "max_dd_pct": 6.1235,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 107,
+      "final_equity": 140136.3,
+      "max_dd_pct": 7.6265,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 108,
+      "final_equity": 229321.08,
+      "max_dd_pct": 4.7525,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 969
+    },
+    {
+      "seed": 109,
+      "final_equity": 288390.38,
+      "max_dd_pct": 6.2003,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1031
+    },
+    {
+      "seed": 110,
+      "final_equity": 281599.02,
+      "max_dd_pct": 4.5103,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 973
+    },
+    {
+      "seed": 111,
+      "final_equity": 87906.05,
+      "max_dd_pct": 5.8698,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 112,
+      "final_equity": 240554.89,
+      "max_dd_pct": 5.1704,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 113,
+      "final_equity": 117008.86,
+      "max_dd_pct": 5.7154,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1025
+    },
+    {
+      "seed": 114,
+      "final_equity": 103647.69,
+      "max_dd_pct": 8.1267,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 115,
+      "final_equity": 69151.16,
+      "max_dd_pct": 10.3975,
+      "kill_switch": true,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 845
+    },
+    {
+      "seed": 116,
+      "final_equity": 121547.95,
+      "max_dd_pct": 8.8666,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 975
+    },
+    {
+      "seed": 117,
+      "final_equity": 135602.1,
+      "max_dd_pct": 4.5374,
+      "kill_switch": false,
+      "expansion_activations": 9,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 118,
+      "final_equity": 183680.1,
+      "max_dd_pct": 6.076,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 119,
+      "final_equity": 121941.49,
+      "max_dd_pct": 7.6758,
+      "kill_switch": false,
+      "expansion_activations": 9,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 120,
+      "final_equity": 287369.19,
+      "max_dd_pct": 5.0029,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 121,
+      "final_equity": 272194.54,
+      "max_dd_pct": 9.0083,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 976
+    },
+    {
+      "seed": 122,
+      "final_equity": 35311.81,
+      "max_dd_pct": 10.0377,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 539
+    },
+    {
+      "seed": 123,
+      "final_equity": 214919.07,
+      "max_dd_pct": 4.521,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 124,
+      "final_equity": 273477.62,
+      "max_dd_pct": 6.4631,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1028
+    },
+    {
+      "seed": 125,
+      "final_equity": 94880.99,
+      "max_dd_pct": 8.2763,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 980
+    },
+    {
+      "seed": 126,
+      "final_equity": 102967.71,
+      "max_dd_pct": 5.6328,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 127,
+      "final_equity": 196529.11,
+      "max_dd_pct": 6.7688,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 128,
+      "final_equity": 225130.99,
+      "max_dd_pct": 5.0967,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 129,
+      "final_equity": 337870.41,
+      "max_dd_pct": 6.0382,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 130,
+      "final_equity": 151570.66,
+      "max_dd_pct": 5.7064,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 131,
+      "final_equity": 137494.86,
+      "max_dd_pct": 9.4894,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1039
+    },
+    {
+      "seed": 132,
+      "final_equity": 129972.59,
+      "max_dd_pct": 9.9857,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 133,
+      "final_equity": 75667.04,
+      "max_dd_pct": 5.5891,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 134,
+      "final_equity": 211594.1,
+      "max_dd_pct": 6.7599,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 135,
+      "final_equity": 279468.75,
+      "max_dd_pct": 4.9969,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 136,
+      "final_equity": 240092.18,
+      "max_dd_pct": 6.509,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 981
+    },
+    {
+      "seed": 137,
+      "final_equity": 235048.23,
+      "max_dd_pct": 6.9515,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 138,
+      "final_equity": 142519.63,
+      "max_dd_pct": 6.1325,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 139,
+      "final_equity": 146454.63,
+      "max_dd_pct": 7.9984,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 140,
+      "final_equity": 75560.43,
+      "max_dd_pct": 6.0027,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 141,
+      "final_equity": 153473.06,
+      "max_dd_pct": 6.7866,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1015
+    },
+    {
+      "seed": 142,
+      "final_equity": 91975.46,
+      "max_dd_pct": 10.0035,
+      "kill_switch": true,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 737
+    },
+    {
+      "seed": 143,
+      "final_equity": 570454.29,
+      "max_dd_pct": 3.5541,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 144,
+      "final_equity": 279918.81,
+      "max_dd_pct": 6.0109,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 978
+    },
+    {
+      "seed": 145,
+      "final_equity": 192169.14,
+      "max_dd_pct": 3.8796,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 146,
+      "final_equity": 178270.35,
+      "max_dd_pct": 5.0957,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 147,
+      "final_equity": 100881.31,
+      "max_dd_pct": 8.513,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 148,
+      "final_equity": 116689.03,
+      "max_dd_pct": 7.8494,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 986
+    },
+    {
+      "seed": 149,
+      "final_equity": 240064.17,
+      "max_dd_pct": 5.9439,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1049
+    },
+    {
+      "seed": 150,
+      "final_equity": 98030.4,
+      "max_dd_pct": 7.2243,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 151,
+      "final_equity": 43651.98,
+      "max_dd_pct": 10.0586,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 451
+    },
+    {
+      "seed": 152,
+      "final_equity": 418322.8,
+      "max_dd_pct": 6.6301,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 153,
+      "final_equity": 109081.64,
+      "max_dd_pct": 6.6274,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 154,
+      "final_equity": 250462.95,
+      "max_dd_pct": 4.1963,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 155,
+      "final_equity": 104530.84,
+      "max_dd_pct": 6.408,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 156,
+      "final_equity": 359121.14,
+      "max_dd_pct": 8.4223,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1032
+    },
+    {
+      "seed": 157,
+      "final_equity": 177481.1,
+      "max_dd_pct": 4.23,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 158,
+      "final_equity": 102403.41,
+      "max_dd_pct": 10.3077,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 911
+    },
+    {
+      "seed": 159,
+      "final_equity": 119473.89,
+      "max_dd_pct": 6.8084,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1039
+    },
+    {
+      "seed": 160,
+      "final_equity": 209993.71,
+      "max_dd_pct": 5.8191,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1024
+    },
+    {
+      "seed": 161,
+      "final_equity": 10657.06,
+      "max_dd_pct": 10.0514,
+      "kill_switch": true,
+      "expansion_activations": 1,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 173
+    },
+    {
+      "seed": 162,
+      "final_equity": 119278.15,
+      "max_dd_pct": 7.9585,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 163,
+      "final_equity": 146060.25,
+      "max_dd_pct": 6.285,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 958
+    },
+    {
+      "seed": 164,
+      "final_equity": 140030.79,
+      "max_dd_pct": 6.8862,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 165,
+      "final_equity": 333923.1,
+      "max_dd_pct": 6.5632,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 166,
+      "final_equity": 142838.28,
+      "max_dd_pct": 8.9856,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 987
+    },
+    {
+      "seed": 167,
+      "final_equity": 183100.71,
+      "max_dd_pct": 5.4496,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 168,
+      "final_equity": 152970.06,
+      "max_dd_pct": 4.937,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 169,
+      "final_equity": 298568.48,
+      "max_dd_pct": 3.7361,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 170,
+      "final_equity": 135264.1,
+      "max_dd_pct": 5.8494,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 171,
+      "final_equity": 108039.16,
+      "max_dd_pct": 8.87,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 172,
+      "final_equity": 99429.03,
+      "max_dd_pct": 7.1165,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 173,
+      "final_equity": 187062.14,
+      "max_dd_pct": 5.4356,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 974
+    },
+    {
+      "seed": 174,
+      "final_equity": 294319.6,
+      "max_dd_pct": 6.0385,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 175,
+      "final_equity": 243998.06,
+      "max_dd_pct": 4.7619,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 176,
+      "final_equity": 191612.21,
+      "max_dd_pct": 5.19,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 177,
+      "final_equity": 107654.74,
+      "max_dd_pct": 5.3262,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 178,
+      "final_equity": 166918.87,
+      "max_dd_pct": 4.7118,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1030
+    },
+    {
+      "seed": 179,
+      "final_equity": 106866.6,
+      "max_dd_pct": 6.4104,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1015
+    },
+    {
+      "seed": 180,
+      "final_equity": 81136.03,
+      "max_dd_pct": 5.3694,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 181,
+      "final_equity": 203968.06,
+      "max_dd_pct": 4.9088,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 182,
+      "final_equity": 150280.04,
+      "max_dd_pct": 5.3396,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1014
+    },
+    {
+      "seed": 183,
+      "final_equity": 262711.05,
+      "max_dd_pct": 3.8775,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 964
+    },
+    {
+      "seed": 184,
+      "final_equity": 194082.77,
+      "max_dd_pct": 6.6969,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 185,
+      "final_equity": 97038.69,
+      "max_dd_pct": 5.137,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 186,
+      "final_equity": 215240.48,
+      "max_dd_pct": 9.5157,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 966
+    },
+    {
+      "seed": 187,
+      "final_equity": 146971.96,
+      "max_dd_pct": 3.8034,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 188,
+      "final_equity": 118035.29,
+      "max_dd_pct": 5.2136,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 189,
+      "final_equity": 165223.3,
+      "max_dd_pct": 7.8294,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 190,
+      "final_equity": 183774.86,
+      "max_dd_pct": 6.1757,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 191,
+      "final_equity": 214635.14,
+      "max_dd_pct": 5.8497,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 984
+    },
+    {
+      "seed": 192,
+      "final_equity": 118011.45,
+      "max_dd_pct": 6.8226,
+      "kill_switch": false,
+      "expansion_activations": 2,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 193,
+      "final_equity": 297502.03,
+      "max_dd_pct": 5.1481,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 194,
+      "final_equity": 97066.34,
+      "max_dd_pct": 9.7102,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 195,
+      "final_equity": 88978.08,
+      "max_dd_pct": 8.6659,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 196,
+      "final_equity": 159236.52,
+      "max_dd_pct": 8.6275,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 197,
+      "final_equity": 50209.31,
+      "max_dd_pct": 10.071,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 934
+    },
+    {
+      "seed": 198,
+      "final_equity": 211063.78,
+      "max_dd_pct": 6.8057,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 967
+    },
+    {
+      "seed": 199,
+      "final_equity": 177059.63,
+      "max_dd_pct": 7.3709,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 200,
+      "final_equity": 266070.47,
+      "max_dd_pct": 4.6993,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 201,
+      "final_equity": 206569.29,
+      "max_dd_pct": 6.1541,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 202,
+      "final_equity": 192868.4,
+      "max_dd_pct": 4.3815,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 203,
+      "final_equity": 169130.19,
+      "max_dd_pct": 6.3118,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 981
+    },
+    {
+      "seed": 204,
+      "final_equity": 124237.86,
+      "max_dd_pct": 8.4572,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 976
+    },
+    {
+      "seed": 205,
+      "final_equity": 208651.53,
+      "max_dd_pct": 5.3628,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 206,
+      "final_equity": 177483.85,
+      "max_dd_pct": 5.2643,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 207,
+      "final_equity": 166692.12,
+      "max_dd_pct": 8.9538,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 986
+    },
+    {
+      "seed": 208,
+      "final_equity": 179609.2,
+      "max_dd_pct": 3.8478,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 209,
+      "final_equity": 215307.91,
+      "max_dd_pct": 5.9625,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 949
+    },
+    {
+      "seed": 210,
+      "final_equity": 96678.41,
+      "max_dd_pct": 5.6583,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 211,
+      "final_equity": 98902.32,
+      "max_dd_pct": 6.397,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 967
+    },
+    {
+      "seed": 212,
+      "final_equity": 285139.45,
+      "max_dd_pct": 5.8622,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1024
+    },
+    {
+      "seed": 213,
+      "final_equity": 241042.95,
+      "max_dd_pct": 7.769,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1028
+    },
+    {
+      "seed": 214,
+      "final_equity": 159774.94,
+      "max_dd_pct": 5.322,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 215,
+      "final_equity": 378503.01,
+      "max_dd_pct": 4.3977,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1059
+    },
+    {
+      "seed": 216,
+      "final_equity": 288667.96,
+      "max_dd_pct": 7.6974,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 217,
+      "final_equity": 90657.58,
+      "max_dd_pct": 5.9356,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 218,
+      "final_equity": 254248.6,
+      "max_dd_pct": 6.5584,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 219,
+      "final_equity": 182372.08,
+      "max_dd_pct": 6.2406,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 220,
+      "final_equity": 366656.08,
+      "max_dd_pct": 6.0377,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 221,
+      "final_equity": 179005.11,
+      "max_dd_pct": 5.2499,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 222,
+      "final_equity": 154138.07,
+      "max_dd_pct": 6.8713,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 986
+    },
+    {
+      "seed": 223,
+      "final_equity": 106475.66,
+      "max_dd_pct": 8.0341,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 224,
+      "final_equity": 124073.36,
+      "max_dd_pct": 5.5621,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 930
+    },
+    {
+      "seed": 225,
+      "final_equity": 186497.29,
+      "max_dd_pct": 4.2736,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 226,
+      "final_equity": 284404.03,
+      "max_dd_pct": 6.2118,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1041
+    },
+    {
+      "seed": 227,
+      "final_equity": 109916.56,
+      "max_dd_pct": 6.8922,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 228,
+      "final_equity": 203429.6,
+      "max_dd_pct": 9.6329,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 229,
+      "final_equity": 160668.27,
+      "max_dd_pct": 5.7509,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 230,
+      "final_equity": 190149.1,
+      "max_dd_pct": 3.8824,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 231,
+      "final_equity": 161354.19,
+      "max_dd_pct": 4.2736,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 232,
+      "final_equity": 228474.02,
+      "max_dd_pct": 4.4101,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 233,
+      "final_equity": 255289.72,
+      "max_dd_pct": 7.2494,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 234,
+      "final_equity": 232514.63,
+      "max_dd_pct": 7.4633,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 235,
+      "final_equity": 56988.17,
+      "max_dd_pct": 10.003,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 699
+    },
+    {
+      "seed": 236,
+      "final_equity": 157388.92,
+      "max_dd_pct": 4.9851,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1039
+    },
+    {
+      "seed": 237,
+      "final_equity": 132631.02,
+      "max_dd_pct": 6.2206,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 238,
+      "final_equity": 238418.51,
+      "max_dd_pct": 5.4757,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1050
+    },
+    {
+      "seed": 239,
+      "final_equity": 289350.8,
+      "max_dd_pct": 5.1798,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 984
+    },
+    {
+      "seed": 240,
+      "final_equity": 105532.58,
+      "max_dd_pct": 7.4701,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 969
+    },
+    {
+      "seed": 241,
+      "final_equity": 210890.36,
+      "max_dd_pct": 4.5241,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 242,
+      "final_equity": 181705.4,
+      "max_dd_pct": 6.6515,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 243,
+      "final_equity": 207987.11,
+      "max_dd_pct": 5.833,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 957
+    },
+    {
+      "seed": 244,
+      "final_equity": 333642.67,
+      "max_dd_pct": 7.5865,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 245,
+      "final_equity": 139090.92,
+      "max_dd_pct": 4.397,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 246,
+      "final_equity": 127526.25,
+      "max_dd_pct": 5.6462,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 247,
+      "final_equity": 147742.97,
+      "max_dd_pct": 5.0757,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 970
+    },
+    {
+      "seed": 248,
+      "final_equity": 139856.21,
+      "max_dd_pct": 5.3011,
+      "kill_switch": false,
+      "expansion_activations": 9,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 249,
+      "final_equity": 10048.94,
+      "max_dd_pct": 10.0255,
+      "kill_switch": true,
+      "expansion_activations": 1,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 104
+    },
+    {
+      "seed": 250,
+      "final_equity": 226029.27,
+      "max_dd_pct": 5.6781,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 251,
+      "final_equity": 175073.38,
+      "max_dd_pct": 3.3591,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 252,
+      "final_equity": 116417.79,
+      "max_dd_pct": 7.0742,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 253,
+      "final_equity": 152622.44,
+      "max_dd_pct": 6.7899,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 254,
+      "final_equity": 166230.4,
+      "max_dd_pct": 4.3377,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1042
+    },
+    {
+      "seed": 255,
+      "final_equity": 69594.15,
+      "max_dd_pct": 8.6782,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 256,
+      "final_equity": 119488.46,
+      "max_dd_pct": 8.8206,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 257,
+      "final_equity": 243897.54,
+      "max_dd_pct": 7.4672,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 258,
+      "final_equity": 125914.73,
+      "max_dd_pct": 7.5358,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 259,
+      "final_equity": 155884.67,
+      "max_dd_pct": 5.3264,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1036
+    },
+    {
+      "seed": 260,
+      "final_equity": 230828.43,
+      "max_dd_pct": 5.7647,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 261,
+      "final_equity": 161553.16,
+      "max_dd_pct": 7.1193,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1040
+    },
+    {
+      "seed": 262,
+      "final_equity": 344057.45,
+      "max_dd_pct": 5.1115,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 263,
+      "final_equity": 162403.37,
+      "max_dd_pct": 4.7329,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 264,
+      "final_equity": 11802.28,
+      "max_dd_pct": 10.106,
+      "kill_switch": true,
+      "expansion_activations": 2,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 186
+    },
+    {
+      "seed": 265,
+      "final_equity": 139249.73,
+      "max_dd_pct": 6.0882,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1054
+    },
+    {
+      "seed": 266,
+      "final_equity": 25484.69,
+      "max_dd_pct": 10.0727,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 433
+    },
+    {
+      "seed": 267,
+      "final_equity": 107488.91,
+      "max_dd_pct": 8.4067,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 268,
+      "final_equity": 9072.06,
+      "max_dd_pct": 10.0881,
+      "kill_switch": true,
+      "expansion_activations": 0,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 44
+    },
+    {
+      "seed": 269,
+      "final_equity": 302367.24,
+      "max_dd_pct": 5.1977,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 270,
+      "final_equity": 103232.36,
+      "max_dd_pct": 6.7084,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 271,
+      "final_equity": 189068.61,
+      "max_dd_pct": 7.8995,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 272,
+      "final_equity": 154662.11,
+      "max_dd_pct": 5.7238,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 273,
+      "final_equity": 126926.49,
+      "max_dd_pct": 5.8797,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 274,
+      "final_equity": 87872.24,
+      "max_dd_pct": 8.6432,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 275,
+      "final_equity": 159696.36,
+      "max_dd_pct": 5.7881,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 276,
+      "final_equity": 515266.19,
+      "max_dd_pct": 4.1819,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 277,
+      "final_equity": 76451.05,
+      "max_dd_pct": 5.8142,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 278,
+      "final_equity": 356680.44,
+      "max_dd_pct": 5.5213,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 279,
+      "final_equity": 263223.14,
+      "max_dd_pct": 6.6678,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1032
+    },
+    {
+      "seed": 280,
+      "final_equity": 114765.45,
+      "max_dd_pct": 4.4272,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 281,
+      "final_equity": 194164.57,
+      "max_dd_pct": 5.9536,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 282,
+      "final_equity": 159097.85,
+      "max_dd_pct": 5.6969,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1050
+    },
+    {
+      "seed": 283,
+      "final_equity": 193693.93,
+      "max_dd_pct": 5.2699,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 284,
+      "final_equity": 351629.56,
+      "max_dd_pct": 6.7451,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 285,
+      "final_equity": 186922.61,
+      "max_dd_pct": 5.1313,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1041
+    },
+    {
+      "seed": 286,
+      "final_equity": 230086.18,
+      "max_dd_pct": 5.8972,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1031
+    },
+    {
+      "seed": 287,
+      "final_equity": 202489.94,
+      "max_dd_pct": 5.346,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 973
+    },
+    {
+      "seed": 288,
+      "final_equity": 151143.68,
+      "max_dd_pct": 5.858,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 289,
+      "final_equity": 161145.81,
+      "max_dd_pct": 5.137,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 290,
+      "final_equity": 178006.18,
+      "max_dd_pct": 7.3029,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 291,
+      "final_equity": 87455.05,
+      "max_dd_pct": 9.4683,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 292,
+      "final_equity": 254633.09,
+      "max_dd_pct": 5.4762,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 293,
+      "final_equity": 287314.0,
+      "max_dd_pct": 3.932,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 294,
+      "final_equity": 511187.26,
+      "max_dd_pct": 5.9789,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 295,
+      "final_equity": 206225.58,
+      "max_dd_pct": 5.7435,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 973
+    },
+    {
+      "seed": 296,
+      "final_equity": 242433.48,
+      "max_dd_pct": 3.8566,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 963
+    },
+    {
+      "seed": 297,
+      "final_equity": 126533.2,
+      "max_dd_pct": 6.9307,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 298,
+      "final_equity": 16527.12,
+      "max_dd_pct": 10.1788,
+      "kill_switch": true,
+      "expansion_activations": 2,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 206
+    },
+    {
+      "seed": 299,
+      "final_equity": 162888.27,
+      "max_dd_pct": 6.1675,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 957
+    },
+    {
+      "seed": 300,
+      "final_equity": 145940.97,
+      "max_dd_pct": 5.0326,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 301,
+      "final_equity": 282827.92,
+      "max_dd_pct": 5.2865,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 302,
+      "final_equity": 107806.07,
+      "max_dd_pct": 6.2804,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 303,
+      "final_equity": 140078.8,
+      "max_dd_pct": 9.0859,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 304,
+      "final_equity": 88624.54,
+      "max_dd_pct": 9.1513,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 979
+    },
+    {
+      "seed": 305,
+      "final_equity": 233585.23,
+      "max_dd_pct": 6.8874,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 306,
+      "final_equity": 124122.9,
+      "max_dd_pct": 6.5976,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 307,
+      "final_equity": 173351.23,
+      "max_dd_pct": 7.7692,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1018
+    },
+    {
+      "seed": 308,
+      "final_equity": 170609.47,
+      "max_dd_pct": 4.3847,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 309,
+      "final_equity": 313252.3,
+      "max_dd_pct": 5.4725,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 983
+    },
+    {
+      "seed": 310,
+      "final_equity": 149951.14,
+      "max_dd_pct": 8.7877,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 311,
+      "final_equity": 424051.12,
+      "max_dd_pct": 4.5721,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 312,
+      "final_equity": 79204.5,
+      "max_dd_pct": 9.5973,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 950
+    },
+    {
+      "seed": 313,
+      "final_equity": 289677.18,
+      "max_dd_pct": 4.5792,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 314,
+      "final_equity": 325135.67,
+      "max_dd_pct": 4.3335,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 315,
+      "final_equity": 214315.23,
+      "max_dd_pct": 5.4701,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 316,
+      "final_equity": 122500.75,
+      "max_dd_pct": 8.572,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1014
+    },
+    {
+      "seed": 317,
+      "final_equity": 128260.86,
+      "max_dd_pct": 5.8843,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1031
+    },
+    {
+      "seed": 318,
+      "final_equity": 301495.95,
+      "max_dd_pct": 7.1849,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 319,
+      "final_equity": 484262.53,
+      "max_dd_pct": 4.9886,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 320,
+      "final_equity": 212765.14,
+      "max_dd_pct": 9.1128,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 321,
+      "final_equity": 213686.89,
+      "max_dd_pct": 6.2021,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 322,
+      "final_equity": 139517.91,
+      "max_dd_pct": 4.265,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 323,
+      "final_equity": 241985.2,
+      "max_dd_pct": 5.8474,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 324,
+      "final_equity": 247388.74,
+      "max_dd_pct": 2.8816,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 325,
+      "final_equity": 22594.58,
+      "max_dd_pct": 10.2212,
+      "kill_switch": true,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 281
+    },
+    {
+      "seed": 326,
+      "final_equity": 111850.87,
+      "max_dd_pct": 5.1531,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 975
+    },
+    {
+      "seed": 327,
+      "final_equity": 222832.7,
+      "max_dd_pct": 4.8083,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 960
+    },
+    {
+      "seed": 328,
+      "final_equity": 361261.76,
+      "max_dd_pct": 3.7988,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 985
+    },
+    {
+      "seed": 329,
+      "final_equity": 202499.91,
+      "max_dd_pct": 4.3799,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 330,
+      "final_equity": 198487.55,
+      "max_dd_pct": 7.898,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1007
+    },
+    {
+      "seed": 331,
+      "final_equity": 271311.58,
+      "max_dd_pct": 5.1788,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 332,
+      "final_equity": 221063.76,
+      "max_dd_pct": 7.4059,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 333,
+      "final_equity": 120662.41,
+      "max_dd_pct": 9.2775,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 5,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 334,
+      "final_equity": 251628.49,
+      "max_dd_pct": 4.3722,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 335,
+      "final_equity": 200565.13,
+      "max_dd_pct": 5.4276,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 336,
+      "final_equity": 227356.37,
+      "max_dd_pct": 6.0047,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1043
+    },
+    {
+      "seed": 337,
+      "final_equity": 242857.43,
+      "max_dd_pct": 5.0525,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1062
+    },
+    {
+      "seed": 338,
+      "final_equity": 143782.37,
+      "max_dd_pct": 4.4577,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1024
+    },
+    {
+      "seed": 339,
+      "final_equity": 233321.87,
+      "max_dd_pct": 5.5174,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 340,
+      "final_equity": 205910.24,
+      "max_dd_pct": 5.7985,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 341,
+      "final_equity": 419976.87,
+      "max_dd_pct": 5.721,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 342,
+      "final_equity": 124675.84,
+      "max_dd_pct": 7.5054,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 971
+    },
+    {
+      "seed": 343,
+      "final_equity": 151885.24,
+      "max_dd_pct": 6.6676,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 344,
+      "final_equity": 222707.18,
+      "max_dd_pct": 6.4468,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 345,
+      "final_equity": 215888.25,
+      "max_dd_pct": 5.2,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 346,
+      "final_equity": 177514.25,
+      "max_dd_pct": 7.3037,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 347,
+      "final_equity": 124918.6,
+      "max_dd_pct": 7.3825,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 986
+    },
+    {
+      "seed": 348,
+      "final_equity": 135656.45,
+      "max_dd_pct": 6.4026,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 349,
+      "final_equity": 225264.53,
+      "max_dd_pct": 4.6306,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1049
+    },
+    {
+      "seed": 350,
+      "final_equity": 271973.38,
+      "max_dd_pct": 7.1409,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 958
+    },
+    {
+      "seed": 351,
+      "final_equity": 280018.63,
+      "max_dd_pct": 9.385,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 974
+    },
+    {
+      "seed": 352,
+      "final_equity": 140006.39,
+      "max_dd_pct": 5.9336,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 353,
+      "final_equity": 110784.68,
+      "max_dd_pct": 8.951,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 354,
+      "final_equity": 172449.22,
+      "max_dd_pct": 7.0902,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 986
+    },
+    {
+      "seed": 355,
+      "final_equity": 172198.93,
+      "max_dd_pct": 5.6497,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 973
+    },
+    {
+      "seed": 356,
+      "final_equity": 258936.29,
+      "max_dd_pct": 5.0361,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 357,
+      "final_equity": 318544.08,
+      "max_dd_pct": 5.6919,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 358,
+      "final_equity": 96303.52,
+      "max_dd_pct": 7.1666,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 359,
+      "final_equity": 168565.35,
+      "max_dd_pct": 6.5892,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 360,
+      "final_equity": 250849.45,
+      "max_dd_pct": 5.9662,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1026
+    },
+    {
+      "seed": 361,
+      "final_equity": 8992.5,
+      "max_dd_pct": 10.075,
+      "kill_switch": true,
+      "expansion_activations": 0,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 84
+    },
+    {
+      "seed": 362,
+      "final_equity": 166853.55,
+      "max_dd_pct": 6.0775,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 363,
+      "final_equity": 176266.09,
+      "max_dd_pct": 4.4813,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 364,
+      "final_equity": 213587.3,
+      "max_dd_pct": 7.4933,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 365,
+      "final_equity": 137598.56,
+      "max_dd_pct": 5.595,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1040
+    },
+    {
+      "seed": 366,
+      "final_equity": 140238.52,
+      "max_dd_pct": 4.4696,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 367,
+      "final_equity": 184594.09,
+      "max_dd_pct": 6.7108,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 368,
+      "final_equity": 109404.96,
+      "max_dd_pct": 6.3805,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 985
+    },
+    {
+      "seed": 369,
+      "final_equity": 111749.44,
+      "max_dd_pct": 5.7116,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 370,
+      "final_equity": 338012.06,
+      "max_dd_pct": 7.4892,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1031
+    },
+    {
+      "seed": 371,
+      "final_equity": 204952.24,
+      "max_dd_pct": 5.0078,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1054
+    },
+    {
+      "seed": 372,
+      "final_equity": 215743.75,
+      "max_dd_pct": 5.5395,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 373,
+      "final_equity": 141959.25,
+      "max_dd_pct": 5.6487,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1037
+    },
+    {
+      "seed": 374,
+      "final_equity": 237749.17,
+      "max_dd_pct": 6.9974,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 375,
+      "final_equity": 274679.83,
+      "max_dd_pct": 6.213,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 376,
+      "final_equity": 85071.14,
+      "max_dd_pct": 6.2801,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 377,
+      "final_equity": 256060.5,
+      "max_dd_pct": 7.2356,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 378,
+      "final_equity": 169768.63,
+      "max_dd_pct": 4.6983,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 980
+    },
+    {
+      "seed": 379,
+      "final_equity": 140938.82,
+      "max_dd_pct": 7.954,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1022
+    },
+    {
+      "seed": 380,
+      "final_equity": 81175.45,
+      "max_dd_pct": 5.8923,
+      "kill_switch": false,
+      "expansion_activations": 2,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 381,
+      "final_equity": 206842.84,
+      "max_dd_pct": 6.2444,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1030
+    },
+    {
+      "seed": 382,
+      "final_equity": 90473.9,
+      "max_dd_pct": 5.2463,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 383,
+      "final_equity": 209683.46,
+      "max_dd_pct": 4.8439,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 384,
+      "final_equity": 172481.49,
+      "max_dd_pct": 7.8383,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1005
+    },
+    {
+      "seed": 385,
+      "final_equity": 231437.33,
+      "max_dd_pct": 5.9995,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1020
+    },
+    {
+      "seed": 386,
+      "final_equity": 204088.98,
+      "max_dd_pct": 8.666,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1025
+    },
+    {
+      "seed": 387,
+      "final_equity": 178745.68,
+      "max_dd_pct": 4.8548,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1025
+    },
+    {
+      "seed": 388,
+      "final_equity": 103966.64,
+      "max_dd_pct": 9.6077,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 967
+    },
+    {
+      "seed": 389,
+      "final_equity": 254559.87,
+      "max_dd_pct": 6.0321,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 974
+    },
+    {
+      "seed": 390,
+      "final_equity": 170127.57,
+      "max_dd_pct": 5.7614,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1014
+    },
+    {
+      "seed": 391,
+      "final_equity": 127165.92,
+      "max_dd_pct": 7.5932,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 972
+    },
+    {
+      "seed": 392,
+      "final_equity": 89129.04,
+      "max_dd_pct": 6.8336,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 393,
+      "final_equity": 128124.31,
+      "max_dd_pct": 8.9122,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 983
+    },
+    {
+      "seed": 394,
+      "final_equity": 130568.08,
+      "max_dd_pct": 5.0881,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 975
+    },
+    {
+      "seed": 395,
+      "final_equity": 163516.81,
+      "max_dd_pct": 6.6831,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 983
+    },
+    {
+      "seed": 396,
+      "final_equity": 233397.07,
+      "max_dd_pct": 4.4841,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1008
+    },
+    {
+      "seed": 397,
+      "final_equity": 136284.64,
+      "max_dd_pct": 5.9023,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 398,
+      "final_equity": 246491.03,
+      "max_dd_pct": 6.1979,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 399,
+      "final_equity": 167561.94,
+      "max_dd_pct": 5.0049,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1037
+    },
+    {
+      "seed": 400,
+      "final_equity": 324822.7,
+      "max_dd_pct": 7.8232,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 991
+    },
+    {
+      "seed": 401,
+      "final_equity": 120762.55,
+      "max_dd_pct": 5.2359,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1062
+    },
+    {
+      "seed": 402,
+      "final_equity": 126747.68,
+      "max_dd_pct": 8.5838,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 989
+    },
+    {
+      "seed": 403,
+      "final_equity": 174293.06,
+      "max_dd_pct": 7.0928,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 404,
+      "final_equity": 147776.49,
+      "max_dd_pct": 6.7253,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 405,
+      "final_equity": 185305.41,
+      "max_dd_pct": 5.6057,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 406,
+      "final_equity": 170881.63,
+      "max_dd_pct": 7.1774,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1008
+    },
+    {
+      "seed": 407,
+      "final_equity": 159185.03,
+      "max_dd_pct": 9.3374,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 408,
+      "final_equity": 133447.06,
+      "max_dd_pct": 4.5103,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 978
+    },
+    {
+      "seed": 409,
+      "final_equity": 132447.07,
+      "max_dd_pct": 7.9231,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 410,
+      "final_equity": 321788.68,
+      "max_dd_pct": 5.559,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 411,
+      "final_equity": 144040.94,
+      "max_dd_pct": 5.3967,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 412,
+      "final_equity": 228218.46,
+      "max_dd_pct": 7.5596,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 413,
+      "final_equity": 121190.98,
+      "max_dd_pct": 7.169,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 414,
+      "final_equity": 131360.59,
+      "max_dd_pct": 9.8829,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 415,
+      "final_equity": 288230.92,
+      "max_dd_pct": 7.405,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1025
+    },
+    {
+      "seed": 416,
+      "final_equity": 180376.32,
+      "max_dd_pct": 7.3404,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 417,
+      "final_equity": 301896.38,
+      "max_dd_pct": 5.9377,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1013
+    },
+    {
+      "seed": 418,
+      "final_equity": 165361.69,
+      "max_dd_pct": 5.6818,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 994
+    },
+    {
+      "seed": 419,
+      "final_equity": 275835.06,
+      "max_dd_pct": 8.2329,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 420,
+      "final_equity": 74100.69,
+      "max_dd_pct": 9.077,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 421,
+      "final_equity": 249693.09,
+      "max_dd_pct": 6.9911,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 422,
+      "final_equity": 233207.92,
+      "max_dd_pct": 6.0533,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1021
+    },
+    {
+      "seed": 423,
+      "final_equity": 161838.79,
+      "max_dd_pct": 5.8237,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1001
+    },
+    {
+      "seed": 424,
+      "final_equity": 221870.92,
+      "max_dd_pct": 5.0172,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 425,
+      "final_equity": 188394.67,
+      "max_dd_pct": 4.8547,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 426,
+      "final_equity": 154012.45,
+      "max_dd_pct": 6.7782,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1014
+    },
+    {
+      "seed": 427,
+      "final_equity": 212209.93,
+      "max_dd_pct": 5.3218,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 428,
+      "final_equity": 123768.05,
+      "max_dd_pct": 7.1097,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 429,
+      "final_equity": 189487.49,
+      "max_dd_pct": 5.8486,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 430,
+      "final_equity": 205274.77,
+      "max_dd_pct": 6.092,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1048
+    },
+    {
+      "seed": 431,
+      "final_equity": 287756.53,
+      "max_dd_pct": 5.9984,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1012
+    },
+    {
+      "seed": 432,
+      "final_equity": 138271.6,
+      "max_dd_pct": 6.6543,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 961
+    },
+    {
+      "seed": 433,
+      "final_equity": 456850.12,
+      "max_dd_pct": 4.7662,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 434,
+      "final_equity": 111454.82,
+      "max_dd_pct": 6.2072,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 984
+    },
+    {
+      "seed": 435,
+      "final_equity": 104597.24,
+      "max_dd_pct": 8.0921,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 985
+    },
+    {
+      "seed": 436,
+      "final_equity": 219291.93,
+      "max_dd_pct": 7.6015,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 997
+    },
+    {
+      "seed": 437,
+      "final_equity": 179410.17,
+      "max_dd_pct": 6.0445,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 438,
+      "final_equity": 284887.86,
+      "max_dd_pct": 6.9952,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1004
+    },
+    {
+      "seed": 439,
+      "final_equity": 248579.37,
+      "max_dd_pct": 4.3111,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1000
+    },
+    {
+      "seed": 440,
+      "final_equity": 218379.92,
+      "max_dd_pct": 6.7929,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1031
+    },
+    {
+      "seed": 441,
+      "final_equity": 277802.11,
+      "max_dd_pct": 8.5178,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 442,
+      "final_equity": 55184.08,
+      "max_dd_pct": 10.0581,
+      "kill_switch": true,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 807
+    },
+    {
+      "seed": 443,
+      "final_equity": 156564.84,
+      "max_dd_pct": 5.1421,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 444,
+      "final_equity": 289033.37,
+      "max_dd_pct": 6.4047,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1023
+    },
+    {
+      "seed": 445,
+      "final_equity": 127981.87,
+      "max_dd_pct": 7.3304,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 4,
+      "intraday_dd_days": 0,
+      "total_trades": 1029
+    },
+    {
+      "seed": 446,
+      "final_equity": 282703.04,
+      "max_dd_pct": 4.1332,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1002
+    },
+    {
+      "seed": 447,
+      "final_equity": 126082.4,
+      "max_dd_pct": 9.0596,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1035
+    },
+    {
+      "seed": 448,
+      "final_equity": 160852.35,
+      "max_dd_pct": 4.9773,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1010
+    },
+    {
+      "seed": 449,
+      "final_equity": 131444.72,
+      "max_dd_pct": 5.1441,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 968
+    },
+    {
+      "seed": 450,
+      "final_equity": 122121.34,
+      "max_dd_pct": 4.5679,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 999
+    },
+    {
+      "seed": 451,
+      "final_equity": 224235.65,
+      "max_dd_pct": 6.0369,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 452,
+      "final_equity": 23400.35,
+      "max_dd_pct": 10.0376,
+      "kill_switch": true,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 466
+    },
+    {
+      "seed": 453,
+      "final_equity": 104865.16,
+      "max_dd_pct": 6.5349,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 454,
+      "final_equity": 170000.15,
+      "max_dd_pct": 5.0911,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 970
+    },
+    {
+      "seed": 455,
+      "final_equity": 439999.81,
+      "max_dd_pct": 4.6209,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 456,
+      "final_equity": 192572.53,
+      "max_dd_pct": 4.8698,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 457,
+      "final_equity": 199758.24,
+      "max_dd_pct": 5.522,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1015
+    },
+    {
+      "seed": 458,
+      "final_equity": 240039.38,
+      "max_dd_pct": 4.0366,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 459,
+      "final_equity": 126642.15,
+      "max_dd_pct": 6.3351,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    },
+    {
+      "seed": 460,
+      "final_equity": 217490.8,
+      "max_dd_pct": 6.3444,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 993
+    },
+    {
+      "seed": 461,
+      "final_equity": 337223.67,
+      "max_dd_pct": 5.5559,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 462,
+      "final_equity": 95816.42,
+      "max_dd_pct": 10.1206,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 857
+    },
+    {
+      "seed": 463,
+      "final_equity": 133726.04,
+      "max_dd_pct": 4.9103,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 464,
+      "final_equity": 150597.65,
+      "max_dd_pct": 4.9644,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 465,
+      "final_equity": 89798.28,
+      "max_dd_pct": 4.912,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 992
+    },
+    {
+      "seed": 466,
+      "final_equity": 120841.05,
+      "max_dd_pct": 10.1982,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 837
+    },
+    {
+      "seed": 467,
+      "final_equity": 167029.57,
+      "max_dd_pct": 10.007,
+      "kill_switch": true,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 948
+    },
+    {
+      "seed": 468,
+      "final_equity": 201013.37,
+      "max_dd_pct": 4.5892,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1015
+    },
+    {
+      "seed": 469,
+      "final_equity": 198031.11,
+      "max_dd_pct": 5.2123,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 470,
+      "final_equity": 197202.77,
+      "max_dd_pct": 7.07,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1058
+    },
+    {
+      "seed": 471,
+      "final_equity": 230856.33,
+      "max_dd_pct": 6.5402,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 472,
+      "final_equity": 141617.2,
+      "max_dd_pct": 6.3302,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 988
+    },
+    {
+      "seed": 473,
+      "final_equity": 121570.0,
+      "max_dd_pct": 5.4311,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 996
+    },
+    {
+      "seed": 474,
+      "final_equity": 390017.85,
+      "max_dd_pct": 4.1796,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1011
+    },
+    {
+      "seed": 475,
+      "final_equity": 159609.68,
+      "max_dd_pct": 5.181,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 476,
+      "final_equity": 109067.39,
+      "max_dd_pct": 7.0825,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1038
+    },
+    {
+      "seed": 477,
+      "final_equity": 119777.13,
+      "max_dd_pct": 3.754,
+      "kill_switch": false,
+      "expansion_activations": 4,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 478,
+      "final_equity": 179594.12,
+      "max_dd_pct": 6.0209,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 995
+    },
+    {
+      "seed": 479,
+      "final_equity": 134524.27,
+      "max_dd_pct": 4.9105,
+      "kill_switch": false,
+      "expansion_activations": 3,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 480,
+      "final_equity": 203415.45,
+      "max_dd_pct": 5.6525,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 960
+    },
+    {
+      "seed": 481,
+      "final_equity": 91249.74,
+      "max_dd_pct": 5.8991,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 482,
+      "final_equity": 94714.09,
+      "max_dd_pct": 5.2435,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1017
+    },
+    {
+      "seed": 483,
+      "final_equity": 281514.6,
+      "max_dd_pct": 3.9318,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1036
+    },
+    {
+      "seed": 484,
+      "final_equity": 82068.44,
+      "max_dd_pct": 10.0038,
+      "kill_switch": true,
+      "expansion_activations": 6,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 903
+    },
+    {
+      "seed": 485,
+      "final_equity": 115370.22,
+      "max_dd_pct": 7.188,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1041
+    },
+    {
+      "seed": 486,
+      "final_equity": 198766.14,
+      "max_dd_pct": 6.4983,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1039
+    },
+    {
+      "seed": 487,
+      "final_equity": 91783.65,
+      "max_dd_pct": 7.1456,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 980
+    },
+    {
+      "seed": 488,
+      "final_equity": 267163.7,
+      "max_dd_pct": 5.4467,
+      "kill_switch": false,
+      "expansion_activations": 7,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1003
+    },
+    {
+      "seed": 489,
+      "final_equity": 232522.74,
+      "max_dd_pct": 6.6558,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1042
+    },
+    {
+      "seed": 490,
+      "final_equity": 331188.06,
+      "max_dd_pct": 5.1211,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1019
+    },
+    {
+      "seed": 491,
+      "final_equity": 92732.44,
+      "max_dd_pct": 9.0305,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 492,
+      "final_equity": 114863.89,
+      "max_dd_pct": 6.2136,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 998
+    },
+    {
+      "seed": 493,
+      "final_equity": 125222.09,
+      "max_dd_pct": 8.999,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1016
+    },
+    {
+      "seed": 494,
+      "final_equity": 329859.2,
+      "max_dd_pct": 7.3027,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 982
+    },
+    {
+      "seed": 495,
+      "final_equity": 162125.05,
+      "max_dd_pct": 7.9408,
+      "kill_switch": false,
+      "expansion_activations": 6,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 1033
+    },
+    {
+      "seed": 496,
+      "final_equity": 267084.42,
+      "max_dd_pct": 6.6371,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 1,
+      "intraday_dd_days": 0,
+      "total_trades": 1009
+    },
+    {
+      "seed": 497,
+      "final_equity": 200812.61,
+      "max_dd_pct": 5.7356,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 0,
+      "intraday_dd_days": 0,
+      "total_trades": 1032
+    },
+    {
+      "seed": 498,
+      "final_equity": 148565.16,
+      "max_dd_pct": 6.3511,
+      "kill_switch": false,
+      "expansion_activations": 5,
+      "daily_lock_days": 3,
+      "intraday_dd_days": 0,
+      "total_trades": 990
+    },
+    {
+      "seed": 499,
+      "final_equity": 168256.95,
+      "max_dd_pct": 8.4091,
+      "kill_switch": false,
+      "expansion_activations": 8,
+      "daily_lock_days": 2,
+      "intraday_dd_days": 0,
+      "total_trades": 1006
+    }
+  ]
+}

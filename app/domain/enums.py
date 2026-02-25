@@ -5,6 +5,7 @@ class Mode(str, Enum):
     """Trading mode."""
     ASSIST = "assist"
     PAPER = "paper"
+    DEMO = "demo"
     LIVE = "live"
 
 
@@ -36,6 +37,8 @@ class TradeOutcome(str, Enum):
     LOSS = "loss"
     BREAKEVEN = "breakeven"
     OPEN = "open"
+    VOID = "void"          # phantom / pre-fix / orphaned trade (never real)
+    CLOSED = "closed"      # closed but win/loss not yet classified (legacy)
 
 
 class Timeframe(str, Enum):
@@ -61,6 +64,9 @@ class LockReason(str, Enum):
     MAX_TRADES = "max_trades_per_day"
     MAX_LOSSES = "max_losses_per_day"
     DAILY_DD = "daily_drawdown_cap"
+    DAILY_LOSS_LIMIT = "daily_loss_limit"
+    TOTAL_DRAWDOWN = "total_drawdown_exceeded"
+    INTRADAY_DD_STOP = "intraday_drawdown_stop"
     COOLDOWN = "cooldown_after_loss"
     PAUSED = "manually_paused"
     KILL_SWITCH = "kill_switch"

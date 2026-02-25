@@ -58,6 +58,10 @@ htmlcov/
 
 # Logs
 logs/
+
+# Node
+node_modules/
+ui/node_modules/
 *.log
 
 # Docker

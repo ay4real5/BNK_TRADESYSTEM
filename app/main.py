@@ -87,10 +87,12 @@ async def main_async() -> None:
     # 6. Run API + Telegram concurrently
     api_app = create_api_app()
 
-    await asyncio.gather(
-        _run_telegram(application),
-        _run_api(api_app),
-    )
+    # Temporarily disable Telegram for OAuth testing
+    # await asyncio.gather(
+    #     _run_telegram(application),
+    #     _run_api(api_app),
+    # )
+    await _run_api(api_app)
 
 
 def main() -> None:

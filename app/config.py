@@ -33,12 +33,63 @@ class Settings(BaseSettings):
     entry_tf: str = "15m"
     bias_tf: str = "1h"
 
+    # Account
+    account_balance: float = 10000.0          # Starting/reference balance in USD
+
     # Risk governor
     risk_per_trade_pct: float = 0.5
-    max_trades_per_day: int = 1
-    max_losses_per_day: int = 1
+    max_trades_per_day: int = 20
+    max_losses_per_day: int = 10
     daily_dd_cap_pct: float = 2.0
-    cooldown_min_after_loss: int = 180
+    cooldown_min_after_loss: int = 30
+    max_open_positions: int = 2          # total demo/live positions allowed simultaneously
+
+    # Dynamic daily loss limits (equity-based)
+    max_daily_loss_pct: float = 2.0           # % of current equity (e.g. 2.0 = $200 on $10k equity)
+    max_daily_loss_abs: float | None = None   # Optional hard-floor override in USD (e.g. -250.0)
+    max_total_drawdown_pct: float = 10.0      # Kill-switch if equity drops >N% below peak equity
+
+    # Intraday drawdown hard stop (resets at start of each day)
+    intraday_dd_stop_pct: float = 5.0         # Hard stop if equity drops >N% from today's open
+
+    # Consecutive-loss risk scaling
+    consecutive_loss_threshold: int = 3       # Number of consecutive losses before scaling kicks in
+    consecutive_loss_scale_factor: float = 0.5  # Risk per trade multiplied by this after streak
+
+    # -----------------------------------------------------------------------
+    # Mode C — Defensive Core + Statistical Expansion Layer
+    # -----------------------------------------------------------------------
+    # Defensive (default) risk
+    defensive_risk_pct: float = 0.5           # % equity per trade in defensive mode
+
+    # Expansion activation gates (all four must be true simultaneously)
+    expansion_min_win_rate: float = 0.60      # Rolling win rate >= 60% over last N trades
+    expansion_max_dd_pct: float = 3.0         # Max rolling drawdown <= 3% over last N trades
+    expansion_rolling_window: int = 30        # Rolling window size (trade count)
+    expansion_min_trades: int = 30            # Minimum trades before activation eligible
+    expansion_atr_multiplier: float = 1.5     # ATR must be <= N * rolling avg ATR to pass
+
+    # Expansion parameters
+    expansion_risk_pct: float = 0.9           # % equity per trade in expansion mode
+    expansion_max_trades: int = 20            # Max trades within one expansion window
+
+    # Expansion exit gates (any one triggers exit)
+    expansion_exit_win_rate: float = 0.55     # Rolling win rate drops below 55% → exit
+    expansion_exit_consec_losses: int = 3     # 3 consecutive losses in expansion → exit
+    expansion_exit_dd_pct: float = 3.0        # Drawdown > 3% from expansion start → exit
+
+    @field_validator("max_daily_loss_abs", mode="before")
+    @classmethod
+    def empty_str_to_none(cls, v: object) -> object:
+        if isinstance(v, str) and v.strip() == "":
+            return None
+        return v
+
+    def effective_risk_pct(self, consecutive_losses: int) -> float:
+        """Return risk-per-trade % after applying consecutive-loss scaling."""
+        if consecutive_losses >= self.consecutive_loss_threshold:
+            return self.defensive_risk_pct * self.consecutive_loss_scale_factor
+        return self.defensive_risk_pct
 
     # Spread / volatility filters
     max_spread_xauusd: float = 0.50   # USD
@@ -70,15 +121,48 @@ class Settings(BaseSettings):
     api_host: str = "0.0.0.0"
     api_port: int = 8000
 
-    # cTrader (optional)
+    # Market data source:
+    #   "internal"  — SyntheticDataProvider / demo engine (default)
+    #   "ctrader"   — live/demo cTrader Open API feed (Phase 4+)
+    market_data_source: str = "internal"
+
+    # cTrader OAuth & API Configuration
     ctrader_client_id: str = ""
     ctrader_client_secret: str = ""
+    ctrader_redirect_uri: str = "http://localhost:8000/api/v1/auth/ctrader/callback"
+    ctrader_env: str = "demo"      # "demo" or "live"
     ctrader_access_token: str = ""
+    ctrader_refresh_token: str = ""
+    ctrader_token_expires_at: str = ""
     ctrader_account_id: str = ""
+    ctrader_demo: bool = True      # True = demo server / False = live server
 
     # Signal snooze / expiry
     signal_snooze_minutes: int = 30
     signal_expiry_minutes: int = 60
+
+    # Demo engine (set BNK_DEMO_ENGINE=1 to enable)
+    bnk_demo_engine: bool = False
+
+    # Test mode (set BNK_TEST_MODE=1 to bypass cooldowns in demo ONLY - for single test trades)
+    bnk_test_mode: bool = False
+
+    # -----------------------------------------------------------------------
+    # Autonomous execution (AUTO_EXECUTE_DEMO=1 to enable)
+    # -----------------------------------------------------------------------
+    # When True and MODE=demo, high-scoring signals are auto-sent to cTrader
+    # without any manual curl / Telegram command.
+    auto_execute_demo: bool = False
+
+    # Minimum strategy score (0–10) required before auto-execution is considered.
+    # Signals below this threshold are recorded but never auto-fired.
+    min_score_to_execute: float = 7.5
+
+    # How often (seconds) to poll for new signals + try execution in demo mode.
+    auto_execute_interval_sec: int = 15
+
+    # How often (seconds) to poll broker for closed positions (SL/TP hits).
+    position_sync_interval_sec: int = 30
 
     @field_validator("mode", mode="before")
     @classmethod

@@ -20,6 +20,7 @@ from ..domain.enums import LockReason
 from ..domain.errors import LockError
 from ..domain.models import RiskState
 from ..data.storage import load_risk_state, save_risk_state
+from . import account_manager, risk_manager
 
 
 async def get_state() -> RiskState:
@@ -61,10 +62,46 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
             f"{LockReason.MAX_LOSSES.value} — {state.losses_count}/{settings.max_losses_per_day} losses"
         )
 
-    # Daily drawdown cap
+    # Max simultaneous open positions (demo + live only; paper excluded)
+    from ..data import storage
+    from ..domain.enums import Mode as _Mode
+    open_trades = await storage.get_open_trades()
+    live_open = [t for t in open_trades if t.mode in (_Mode.DEMO, _Mode.LIVE)]
+    if len(live_open) >= settings.max_open_positions:
+        raise LockError(
+            f"max_open_positions — {len(live_open)}/{settings.max_open_positions} positions open"
+        )
+
+    # Daily drawdown cap (percentage-based from settings)
     if state.drawdown_pct >= settings.daily_dd_cap_pct:
         raise LockError(
             f"{LockReason.DAILY_DD.value} — {state.drawdown_pct:.2f}% >= {settings.daily_dd_cap_pct}%"
+        )
+
+    # Load live account for equity-based checks
+    account = await account_manager.get_account()
+
+    # Total drawdown kill-switch (equity vs peak_equity)
+    if risk_manager.is_total_drawdown_breached(account.equity, account.peak_equity):
+        raise LockError(
+            f"{LockReason.TOTAL_DRAWDOWN.value} — "
+            f"equity ${account.equity:,.2f} | "
+            f"{risk_manager.total_drawdown_limit_str(account.peak_equity)}"
+        )
+
+    # Intraday drawdown hard stop (equity vs today's opening equity)
+    if risk_manager.is_intraday_dd_breached(account.equity, account.equity_at_day_start):
+        raise LockError(
+            f"{LockReason.INTRADAY_DD_STOP.value} — "
+            f"equity ${account.equity:,.2f} | "
+            f"{risk_manager.intraday_dd_limit_str(account.equity_at_day_start)}"
+        )
+
+    # Dynamic daily loss limit (equity-based + optional hard floor)
+    if risk_manager.is_daily_loss_breached(state.pnl, account.equity):
+        raise LockError(
+            f"{LockReason.DAILY_LOSS_LIMIT.value} — "
+            f"pnl ${state.pnl:+.2f} reached limit {risk_manager.daily_loss_limit_str(account.equity)}"
         )
 
     return state
@@ -73,15 +110,56 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
 async def record_trade(pnl: float, is_loss: bool) -> RiskState:
     """
     Update daily state after a trade closes.
-    Applies cooldown if the trade was a loss.
+    Applies a cooldown for any loss; locks for the rest of the day if the
+    dynamic daily loss limit or intraday drawdown stop is breached.
     """
     state = await get_state()
     state.trades_count += 1
 
     if is_loss:
         state.losses_count += 1
-        state.pnl += pnl
-        # Apply cooldown
+
+    state.pnl = round(state.pnl + pnl, 2)
+
+    # Load live equity for limit calculations
+    account = await account_manager.get_account()
+
+    # Check if the daily loss limit has now been breached
+    if risk_manager.is_daily_loss_breached(state.pnl, account.equity):
+        now = datetime.utcnow()
+        midnight = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        state.locked_until_ts = midnight
+        state.lock_reason = LockReason.DAILY_LOSS_LIMIT
+        logger.critical(
+            "Daily loss limit breached — pnl ${:+.2f} / limit {} — trading locked until {} UTC",
+            state.pnl,
+            risk_manager.daily_loss_limit_str(account.equity),
+            midnight.strftime("%H:%M"),
+        )
+    elif risk_manager.is_intraday_dd_breached(account.equity, account.equity_at_day_start):
+        # Intraday DD hard stop — lock until midnight UTC
+        now = datetime.utcnow()
+        midnight = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        state.locked_until_ts = midnight
+        state.lock_reason = LockReason.INTRADAY_DD_STOP
+        logger.critical(
+            "INTRADAY DD STOP — equity ${:.2f} dropped >{}% from day-open ${:.2f} — locked until {} UTC",
+            account.equity,
+            settings.intraday_dd_stop_pct,
+            account.equity_at_day_start,
+            midnight.strftime("%H:%M"),
+        )
+    elif risk_manager.is_total_drawdown_breached(account.equity, account.peak_equity):
+        # Total drawdown kill-switch — permanent lock, requires manual reset
+        state.kill_switch = True
+        state.lock_reason = LockReason.TOTAL_DRAWDOWN
+        logger.critical(
+            "TOTAL DRAWDOWN EXCEEDED — equity ${:.2f} / {} — kill switch engaged",
+            account.equity,
+            risk_manager.total_drawdown_limit_str(account.peak_equity),
+        )
+    elif is_loss:
+        # Normal per-loss cooldown
         cooldown_end = datetime.utcnow() + timedelta(minutes=settings.cooldown_min_after_loss)
         state.locked_until_ts = cooldown_end
         state.lock_reason = LockReason.COOLDOWN
@@ -89,8 +167,6 @@ async def record_trade(pnl: float, is_loss: bool) -> RiskState:
             "Loss recorded — cooldown active until {} UTC",
             cooldown_end.strftime("%H:%M"),
         )
-    else:
-        state.pnl += pnl
 
     await save_risk_state(state)
     return state

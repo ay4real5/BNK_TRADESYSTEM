@@ -1,46 +1,56 @@
 """
-cTrader data provider — fetches live OHLCV data via the cTrader Open API.
+cTrader data provider — thin wrapper around app.integration.ctrader_data.
 
-This is a stub implementation. Fill in authentication and WebSocket
-logic once CTRADER_CLIENT_ID / CTRADER_ACCESS_TOKEN are configured.
+This module now delegates to the full async implementation in
+app/integration/ctrader_data.py (CTraderLiveProvider).
+
+For the read-only live feed (Phase 4), use:
+    MARKET_DATA_SOURCE=ctrader
+
+The server lifespan (app/api/server.py) will automatically start the
+CTraderFeed and register the CTraderLiveProvider as the active DataProvider.
 """
-
 from __future__ import annotations
 
 from loguru import logger
 
 from ...domain.enums import Symbol
-from ...domain.errors import BrokerError
 from ...domain.models import Candle
 from ..market_data import DataProvider
 
 
 class CTraderDataProvider(DataProvider):
-    """Live market data from cTrader Open API."""
+    """
+    Thin compatibility shim.
 
-    def __init__(
-        self,
-        client_id: str,
-        client_secret: str,
-        access_token: str,
-        account_id: str,
-    ) -> None:
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.access_token = access_token
-        self.account_id = account_id
-        self._connected = False
-        logger.warning(
-            "CTraderDataProvider initialised — live connection NOT yet implemented. "
-            "Use CSVDataProvider or SyntheticDataProvider in the meantime."
+    In Phase 4+ the real provider is CTraderLiveProvider (in
+    app/integration/ctrader_data.py), registered automatically when
+    MARKET_DATA_SOURCE=ctrader is set in .env.
+
+    This class exists only so other code that imports CTraderDataProvider
+    by name does not break.
+    """
+
+    def __init__(self, **_kwargs) -> None:
+        logger.info(
+            "CTraderDataProvider shim created. "
+            "The live feed is managed by app.integration.ctrader_data.CTraderFeed."
         )
+        self._live: DataProvider | None = None
 
-    async def _ensure_connected(self) -> None:
-        if not self._connected:
-            raise BrokerError(
-                "cTrader WebSocket connection not implemented yet. "
-                "Please implement the connection logic or use another provider."
-            )
+    def _get_live(self) -> DataProvider:
+        from ...integration.ctrader_data import get_feed
+        feed = get_feed()
+        if feed and feed.is_started:
+            return feed.live_provider
+        from .. import market_data
+        provider = market_data._provider  # type: ignore[attr-defined]
+        if provider is not None:
+            return provider
+        raise RuntimeError(
+            "No active data provider. Is MARKET_DATA_SOURCE=ctrader set and the "
+            "server running?"
+        )
 
     async def fetch_candles(
         self,
@@ -48,14 +58,10 @@ class CTraderDataProvider(DataProvider):
         timeframe: str,
         count: int = 300,
     ) -> list[Candle]:
-        await self._ensure_connected()
-        # TODO: implement cTrader GetTrendbars request
-        raise NotImplementedError("CTraderDataProvider.fetch_candles not yet implemented")
+        return await self._get_live().fetch_candles(symbol, timeframe, count)
 
     async def fetch_price(self, symbol: Symbol) -> float:
-        await self._ensure_connected()
-        raise NotImplementedError("CTraderDataProvider.fetch_price not yet implemented")
+        return await self._get_live().fetch_price(symbol)
 
     async def fetch_spread(self, symbol: Symbol) -> float:
-        await self._ensure_connected()
-        raise NotImplementedError("CTraderDataProvider.fetch_spread not yet implemented")
+        return await self._get_live().fetch_spread(symbol)

@@ -8,13 +8,14 @@ import os
 import tempfile
 from datetime import datetime, timedelta
 from pathlib import Path
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
 from app.data import storage
 from app.domain.enums import LockReason
 from app.domain.errors import LockError
-from app.domain.models import RiskState
+from app.domain.models import AccountState, RiskState
 from app.services import locks
 
 
@@ -28,10 +29,15 @@ async def tmp_db(tmp_path):
 
 @pytest.mark.asyncio
 async def test_check_can_trade_fresh_state(tmp_db):
-    """Fresh state should allow trading."""
-    state = await locks.check_can_trade(
-        state=RiskState(date="2024-01-01")
-    )
+    """Fresh state should allow trading — mocks account manager (not under test here)."""
+    default_account = AccountState()  # equity=10_000, peak=10_000, consecutive_losses=0
+    with patch(
+        "app.services.locks.account_manager.get_account",
+        new=AsyncMock(return_value=default_account),
+    ):
+        state = await locks.check_can_trade(
+            state=RiskState(date="2024-01-01")
+        )
     assert not state.is_locked
 
 

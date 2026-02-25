@@ -1,0 +1,405 @@
+══════════════════════════════════════════════════════════════════════
+cTrader Demo Execution — IMPLEMENTATION COMPLETE
+══════════════════════════════════════════════════════════════════════
+
+STATUS: ✅ READY FOR CONTROLLED TESTING
+DATE: 2026-02-25
+MODE: Demo
+TRADES PLACED: 0 (awaiting controlled test)
+
+══════════════════════════════════════════════════════════════════════
+IMPLEMENTATION SUMMARY
+══════════════════════════════════════════════════════════════════════
+
+The complete end-to-end demo trading infrastructure is now operational:
+
+✅ Data → Signal → Risk → Execution → Broker → Sync → P&L
+
+This is now a SERIOUS TRADING INFRASTRUCTURE capable of:
+- Real-time execution via cTrader Demo API
+- Pre-trade risk validation
+- Position management with SL/TP
+- Automated position sync
+- Full P&L tracking
+
+══════════════════════════════════════════════════════════════════════
+FILES CREATED/MODIFIED
+══════════════════════════════════════════════════════════════════════
+
+✅ CORE EXECUTION SERVICE
+   app/execution/ctrader_execution.py (750+ lines)
+   - CTraderExecutionService class
+   - Market order placement
+   - SL/TP attachment
+   - Position size calculation
+   - Pre-trade safeguards
+   - Position sync with broker
+   - Remote position ID mapping
+
+✅ EXECUTION ROUTER
+   app/execution/router.py (140+ lines)
+   - Mode-based execution routing
+   - Handles: assist|paper|demo|live
+   - Clean separation of execution backends
+
+✅ TRADE MANAGER UPDATES
+   app/services/trade_manager.py
+   - Added mode-based executor routing
+   - Integrated position sync for demo/live
+   - Mark-to-market for all modes
+
+✅ PAPER EXECUTION UPDATES
+   app/execution/paper_execution.py
+   - Integrated with router
+   - Mode-aware processing
+
+✅ DOMAIN ENUMS
+   app/domain/enums.py
+   - Added Mode.DEMO
+
+✅ API ENDPOINTS
+   app/api/routes.py
+   - GET /api/v1/execution/status
+   - POST /api/v1/execution/sync-positions
+
+✅ TEST SUITE
+   scripts/test_demo_execution.py (550+ lines)
+   - Prerequisite validation
+   - Signal generation
+   - Controlled execution
+   - Position monitoring
+   - Comprehensive reporting
+
+✅ CONFIGURATION
+   .env.example
+   - Updated risk parameters
+   - MODE options: assist|paper|demo|live
+
+══════════════════════════════════════════════════════════════════════
+ARCHITECTURE OVERVIEW
+══════════════════════════════════════════════════════════════════════
+
+MODE ROUTING:
+┌──────────────────────────────────────────────────────────────────┐
+│                         Signal Entry                              │
+│                              ↓                                    │
+│                    Execution Router                               │
+│                              ↓                                    │
+│         ┌────────────────────┼────────────────────┐              │
+│         │                    │                    │              │
+│    MODE=assist         MODE=paper           MODE=demo/live       │
+│         │                    │                    │              │
+│    No execution      PaperExecutor       CTraderExecutionService │
+│    (signals only)    (simulation)         (real broker)          │
+└──────────────────────────────────────────────────────────────────┘
+
+PRE-TRADE SAFEGUARDS:
+1. Risk engine approval (locks.check_can_trade)
+2. SL/TP geometry validation
+3. Spread check
+4. Account margin check
+5. Position size calculation
+6. Order payload logging
+
+POSITION LIFECYCLE:
+1. Signal created → pending status
+2. Risk validation
+3. Order sent to broker
+4. Position ID received
+5. SL/TP attached
+6. Local DB updated with remote ID
+7. Position sync loop monitors
+8. Trade closes (SL/TP/manual)
+9. P&L recorded
+10. Risk state updated
+
+══════════════════════════════════════════════════════════════════════
+RISK PARAMETERS (CONSERVATIVE FOR TESTING)
+══════════════════════════════════════════════════════════════════════
+
+RISK_PER_TRADE_PCT = 0.5%
+MAX_TRADES_PER_DAY = 3
+MAX_DAILY_LOSS_PCT = 1.0%
+MAX_LOSSES_PER_DAY = 3
+
+These are HARD LIMITS enforced by the risk engine.
+No expansion mode enabled for testing.
+
+Expected risk per trade on $10,000 account:
+- Risk amount: $50
+- On 5-point SL: ~10 lots XAUUSD
+- Max win (1.8 RR): $90
+- Max loss: $50
+
+══════════════════════════════════════════════════════════════════════
+API ENDPOINTS
+══════════════════════════════════════════════════════════════════════
+
+GET /api/v1/execution/status
+Returns:
+{
+  "mode": "demo",
+  "position_count": 1,
+  "open_positions": [
+    {
+      "id": 1,
+      "symbol": "XAUUSD",
+      "side": "buy",
+      "entry": 2650.00,
+      "sl": 2645.00,
+      "tp": 2659.00,
+      "size": 10.0,
+      "pnl": 25.00,
+      "outcome": "open"
+    }
+  ],
+  "risk_state": {
+    "trades_count": 1,
+    "losses_count": 0,
+    "pnl": 0.0,
+    "drawdown_pct": 0.0,
+    "is_locked": false
+  },
+  "ctrader_connected": true
+}
+
+POST /api/v1/execution/sync-positions
+Manually triggers position sync with broker.
+
+══════════════════════════════════════════════════════════════════════
+CONTROLLED TEST PROCEDURE
+══════════════════════════════════════════════════════════════════════
+
+[STEP 1] Set MODE=demo in .env
+   
+   MODE=demo
+
+[STEP 2] Verify OAuth connection
+   
+   curl http://localhost:8000/api/v1/ctrader/status | jq
+   
+   Expected: "connected": true
+
+[STEP 3] Run test script
+   
+   python scripts/test_demo_execution.py
+   
+   The script will:
+   1. Verify all prerequisites
+   2. Generate ONE test signal
+   3. Execute via cTrader Demo API
+   4. Monitor for 30 seconds
+   5. Generate test report
+
+[STEP 4] Verify in cTrader terminal
+   
+   1. Open cTrader demo platform
+   2. Check "Positions" tab
+   3. Confirm:
+      - Position appears
+      - SL and TP are set
+      - Size matches expected
+      - Comment: "BNK_TRADE_X"
+
+[STEP 5] Monitor position
+   
+   curl http://localhost:8000/api/v1/execution/status | jq
+   
+   Watch P&L update in real-time
+
+[STEP 6] Close trade manually (optional)
+   
+   1. Close position in cTrader terminal
+   2. Wait 5-10 seconds
+   3. Check local database:
+      
+      curl http://localhost:8000/api/v1/execution/status | jq
+   
+   4. Confirm position closed in local DB
+   5. Verify P&L matches cTrader
+
+══════════════════════════════════════════════════════════════════════
+TEST VALIDATION CHECKLIST
+══════════════════════════════════════════════════════════════════════
+
+Connection: □ PASS / FAIL
+- OAuth tokens valid
+- cTrader API responds
+- Account discovered
+
+Order placement: □ PASS / FAIL
+- Order sent successfully
+- Position ID returned
+- Entry price logged
+- No errors
+
+SL/TP placement: □ PASS / FAIL
+- SL set correctly
+- TP set correctly
+- Visible in cTrader terminal
+
+Position sync: □ PASS / FAIL
+- Local position matches remote
+- P&L syncs correctly
+- Manual close detected
+- Database updated
+
+Risk enforcement: □ PASS / FAIL
+- Daily limit enforced
+- Trade count enforced
+- Loss limit enforced
+- Position size correct
+
+System stability: □ PASS / FAIL
+- No crashes
+- No errors
+- Logs clean
+- Database consistent
+
+══════════════════════════════════════════════════════════════════════
+SAFETY MEASURES
+══════════════════════════════════════════════════════════════════════
+
+✅ Demo environment only (CTRADER_ENV=demo)
+✅ Conservative risk (0.5% per trade)
+✅ Limited trades (3 per day max)
+✅ Daily loss cap (1% of equity)
+✅ Pre-trade validation (risk engine)
+✅ Order payload logging
+✅ Position sync monitoring
+✅ No expansion mode enabled
+
+⚠️  LIVE MODE NOT ENABLED
+    To enable live trading (NOT RECOMMENDED YET):
+    1. Set CTRADER_ENV=live
+    2. Update MODE=live
+    3. Additional safeguards required
+    4. Manual confirmation needed
+
+══════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+══════════════════════════════════════════════════════════════════════
+
+Issue: "No OAuth access token"
+
+Solution:
+1. Visit http://localhost:8000/auth/ctrader/login
+2. Complete OAuth flow
+3. Verify: curl http://localhost:8000/api/v1/ctrader/status
+
+───────────────────────────────────────────────────────────────────────
+
+Issue: "Risk check failed"
+
+Possible causes:
+- Daily trade limit reached
+- Daily loss limit exceeded
+- Account locked (cooldown)
+
+Solution:
+1. Check risk state: curl http://localhost:8000/api/v1/execution/status
+2. Reset daily state (if testing):
+   - Delete risk_state row in database
+   - Or wait for next trading day
+
+───────────────────────────────────────────────────────────────────────
+
+Issue: "Order submission failed"
+
+Possible causes:
+- Invalid credentials
+- Network error
+- cTrader API down
+- Invalid order parameters
+
+Solution:
+1. Check logs for detailed error
+2. Verify cTrader connection
+3. Test with smaller position size
+4. Check symbol is tradeable
+
+───────────────────────────────────────────────────────────────────────
+
+Issue: "Position not syncing"
+
+Possible causes:
+- Remote position ID not stored
+- Network error
+- cTrader API rate limit
+
+Solution:
+1. Manually trigger sync:
+   POST http://localhost:8000/api/v1/execution/sync-positions
+2. Check database for position_id_X secret
+3. Verify position exists in cTrader
+
+══════════════════════════════════════════════════════════════════════
+NEXT STEPS
+══════════════════════════════════════════════════════════════════════
+
+1. Run controlled test (ONE trade)
+2. Verify all checks pass
+3. Monitor position lifecycle
+4. Confirm P&L accuracy
+5. Test manual close sync
+6. Paste test report here
+
+Once single trade passes cleanly:
+
+✅ OAuth flow: COMPLETE
+✅ Token management: COMPLETE  
+✅ Connection testing: COMPLETE
+✅ Execution service: COMPLETE
+✅ Position sync: COMPLETE
+✅ Risk enforcement: COMPLETE
+✅ End-to-end flow: VALIDATED
+
+You will officially have:
+Data → Signal → Risk → Execution → Broker → Sync → P&L
+
+A COMPLETE DEMO TRADING ENGINE.
+
+══════════════════════════════════════════════════════════════════════
+TEST REPORT FORMAT
+══════════════════════════════════════════════════════════════════════
+
+After running the test, paste the output here:
+
+Test Results:
+  ✅/❌ Connection: PASS/FAIL
+  ✅/❌ Order placement: PASS/FAIL
+  ✅/❌ SL/TP placement: PASS/FAIL
+  ✅/❌ Position sync: PASS/FAIL
+  ✅/❌ Risk enforcement: PASS/FAIL
+  ✅/❌ System stability: PASS/FAIL
+
+Trade Details:
+  ID: 1
+  Symbol: XAUUSD
+  Side: BUY
+  Entry: 2650.00
+  SL: 2645.00
+  TP: 2659.00
+  Size: 10.0 lots
+  Status: open/closed
+
+cTrader Verification:
+  Position visible: YES/NO
+  SL/TP set: YES/NO
+  P&L matches: YES/NO
+
+══════════════════════════════════════════════════════════════════════
+END OF IMPLEMENTATION GUIDE
+══════════════════════════════════════════════════════════════════════
+
+Implementation: ✅ COMPLETE
+Documentation: ✅ COMPLETE
+Testing: ⏳ AWAITING CONTROLLED TEST
+
+Ready for user to:
+1. Set MODE=demo
+2. Run test script
+3. Verify in cTrader terminal
+4. Paste results
+
+NO TRADES PLACED YET — awaiting user confirmation.

@@ -70,6 +70,86 @@ async def send_eod_report(summary: dict) -> None:
             logger.error("Failed to send EOD report to {}: {}", chat_id, exc)
 
 
+async def _broadcast(text: str) -> None:
+    """Send plain-text message to all admins (fire-and-forget)."""
+    if _app is None:
+        return
+    for chat_id in settings.admin_chat_ids:
+        try:
+            await _app.bot.send_message(chat_id=chat_id, text=text)
+        except Exception as exc:
+            logger.warning("Telegram broadcast to {} failed: {}", chat_id, exc)
+
+
+async def notify_trade_opened(trade, signal_score: float = 0.0) -> None:
+    """
+    Alert: autonomous execution opened a real cTrader position.
+
+    Args:
+        trade: TradeResult — the freshly opened trade
+        signal_score: Strategy score that triggered execution
+    """
+    side_icon = "📈" if trade.side.value == "buy" else "📉"
+    slippage_str = f"{trade.entry_slippage:+.3f}" if trade.entry_slippage is not None else "—"
+    spread_str = f"{trade.spread_at_entry:.2f}" if trade.spread_at_entry is not None else "—"
+    latency_str = f"{trade.execution_latency_ms}ms" if trade.execution_latency_ms is not None else "—"
+
+    text = (
+        f"🤖 AUTO-TRADE OPENED\n"
+        f"{side_icon} {trade.symbol.value}  {trade.side.value.upper()}\n\n"
+        f"Fill:       {trade.entry:.4f}\n"
+        f"SL:         {trade.sl:.4f}\n"
+        f"TP:         {trade.tp:.4f}\n"
+        f"Size:       {trade.size} lots\n"
+        f"Score:      {signal_score:.1f}/10\n\n"
+        f"Slippage:   {slippage_str}\n"
+        f"Spread:     {spread_str}\n"
+        f"Latency:    {latency_str}\n"
+        f"Broker ID:  {trade.broker_position_id or '—'}"
+    )
+    await _broadcast(text)
+
+
+async def notify_trade_closed(trade) -> None:
+    """
+    Alert: broker closed a position (SL/TP hit or manual).
+
+    Args:
+        trade: TradeResult — post-close record with pnl, outcome, exit_price
+    """
+    outcome_icon = "✅" if trade.pnl > 0 else "❌" if trade.pnl < 0 else "➖"
+    exit_str = f"{trade.exit_price:.4f}" if trade.exit_price is not None else "—"
+    exit_slip = f"{trade.exit_slippage:+.3f}" if trade.exit_slippage is not None else "—"
+
+    duration = ""
+    if trade.ts_open and trade.ts_close:
+        mins = int((trade.ts_close - trade.ts_open).total_seconds() // 60)
+        duration = f"\nHeld:       {mins} min"
+
+    text = (
+        f"{outcome_icon} TRADE CLOSED — {trade.symbol.value} {trade.side.value.upper()}\n\n"
+        f"PnL:        {trade.pnl:+.2f} USD\n"
+        f"Outcome:    {trade.outcome.value.upper()}\n"
+        f"Entry:      {trade.entry:.4f}\n"
+        f"Exit:       {exit_str}\n"
+        f"Exit slip:  {exit_slip}"
+        f"{duration}\n"
+        f"Broker ID:  {trade.broker_position_id or '—'}"
+    )
+    await _broadcast(text)
+
+
+async def notify_risk_locked(reason: str) -> None:
+    """
+    Alert: risk engine blocked trading for the session.
+
+    Args:
+        reason: Human-readable lock reason string
+    """
+    text = f"🔒 RISK LOCK ACTIVE\n\n{reason}\n\nAuto-execution is paused."
+    await _broadcast(text)
+
+
 # ---------------------------------------------------------------------------
 # Inline button callback handlers
 # ---------------------------------------------------------------------------

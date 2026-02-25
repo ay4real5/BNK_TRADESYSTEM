@@ -35,6 +35,12 @@ dev = [
     "ruff>=0.4",
     "mypy>=1.10",
 ]
+# Install this when MARKET_DATA_SOURCE=ctrader:
+# pip install ctrader-open-api
+# (provides generated protobuf message classes for the cTrader Open API 2.0)
+ctrader = [
+    "ctrader-open-api>=2.0",
+]
 
 [project.scripts]
 tradesystem = "app.main:main"
