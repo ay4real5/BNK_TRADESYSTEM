@@ -2,16 +2,18 @@
 Risk governor and trading locks.
 
 This module implements all daily risk controls:
+  - Kill switch / manual pause
+  - Session gate (London / NY windows only)
+  - News blackout gate
   - Max trades per day
   - Max losses per day
   - Daily drawdown cap
   - Cooldown after a loss
-  - Manual pause / kill switch
 """
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from loguru import logger
 
@@ -23,6 +25,19 @@ from ..data.storage import load_risk_state, save_risk_state
 from . import account_manager, risk_manager
 
 
+async def _log_session_block(detail: str) -> None:
+    """Write a session_block entry to the execution_events audit log."""
+    try:
+        from ..data.storage import log_execution_event
+        await log_execution_event(
+            event_type="session_block",
+            symbol=None,
+            detail=detail,
+        )
+    except Exception as exc:  # pragma: no cover
+        logger.debug("Could not log session_block: {}", exc)
+
+
 async def get_state() -> RiskState:
     return await load_risk_state()
 
@@ -31,38 +46,68 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
     """
     Verify that trading is permitted under current risk state.
     Raises LockError if blocked, otherwise returns the current state.
+
+    Gate order (fastest / cheapest first):
+      1. Kill switch
+      2. Manual pause
+      3. Session gate   (UTC hour check)
+      4. News blackout  (file check)
+      5. Cooldown / daily lock (DB timestamp)
+      6. Daily counters (max trades / losses)
+      7. Open position count
+      8. Drawdown gates (account equity)
     """
     if state is None:
         state = await get_state()
 
-    # Kill switch
+    # ── 1. Kill switch ────────────────────────────────────────────────────
     if state.kill_switch:
         raise LockError(LockReason.KILL_SWITCH.value)
 
-    # Manual pause
+    # ── 2. Manual pause ───────────────────────────────────────────────────
     if state.paused_until_ts and datetime.utcnow() < state.paused_until_ts:
         remaining = int((state.paused_until_ts - datetime.utcnow()).total_seconds() // 60)
         raise LockError(f"{LockReason.PAUSED.value} — {remaining}m remaining")
 
-    # Cooldown / daily lock
+    # ── 3. Session gate ───────────────────────────────────────────────────
+    if settings.session_gate_enabled:
+        hour = datetime.now(timezone.utc).hour
+        in_london = settings.london_open_utc <= hour < settings.london_close_utc
+        in_ny     = settings.ny_open_utc     <= hour < settings.ny_close_utc
+        if not (in_london or in_ny):
+            detail = (
+                f"UTC hour={hour} outside London ({settings.london_open_utc:02d}:00–"
+                f"{settings.london_close_utc:02d}:00) and "
+                f"NY ({settings.ny_open_utc:02d}:00–{settings.ny_close_utc:02d}:00)"
+            )
+            await _log_session_block(detail)
+            raise LockError(f"{LockReason.OUT_OF_SESSION.value} — {detail}")
+
+    # ── 4. News blackout ──────────────────────────────────────────────────
+    from .news_filter import is_news_window
+    blocked, news_reason = await is_news_window()
+    if blocked:
+        raise LockError(f"{LockReason.NEWS_FILTER.value} — {news_reason}")
+
+    # ── 5. Cooldown / daily lock ──────────────────────────────────────────
     if state.locked_until_ts and datetime.utcnow() < state.locked_until_ts:
         remaining = int((state.locked_until_ts - datetime.utcnow()).total_seconds() // 60)
         reason = state.lock_reason.value if state.lock_reason else LockReason.COOLDOWN.value
         raise LockError(f"{reason} — {remaining}m remaining")
 
-    # Max trades per day
+    # ── 6a. Max trades per day ────────────────────────────────────────────
     if state.trades_count >= settings.max_trades_per_day:
         raise LockError(
             f"{LockReason.MAX_TRADES.value} — {state.trades_count}/{settings.max_trades_per_day} used"
         )
 
-    # Max losses per day
+    # ── 6b. Max losses per day ────────────────────────────────────────────
     if state.losses_count >= settings.max_losses_per_day:
         raise LockError(
             f"{LockReason.MAX_LOSSES.value} — {state.losses_count}/{settings.max_losses_per_day} losses"
         )
 
-    # Max simultaneous open positions (demo + live only; paper excluded)
+    # ── 7. Max simultaneous open positions ────────────────────────────────
     from ..data import storage
     from ..domain.enums import Mode as _Mode
     open_trades = await storage.get_open_trades()
@@ -72,16 +117,15 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
             f"max_open_positions — {len(live_open)}/{settings.max_open_positions} positions open"
         )
 
-    # Daily drawdown cap (percentage-based from settings)
+    # ── 8. Daily drawdown cap ─────────────────────────────────────────────
     if state.drawdown_pct >= settings.daily_dd_cap_pct:
         raise LockError(
             f"{LockReason.DAILY_DD.value} — {state.drawdown_pct:.2f}% >= {settings.daily_dd_cap_pct}%"
         )
 
-    # Load live account for equity-based checks
+    # ── 8b. Equity-based checks (require DB read) ─────────────────────────
     account = await account_manager.get_account()
 
-    # Total drawdown kill-switch (equity vs peak_equity)
     if risk_manager.is_total_drawdown_breached(account.equity, account.peak_equity):
         raise LockError(
             f"{LockReason.TOTAL_DRAWDOWN.value} — "
@@ -89,7 +133,6 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
             f"{risk_manager.total_drawdown_limit_str(account.peak_equity)}"
         )
 
-    # Intraday drawdown hard stop (equity vs today's opening equity)
     if risk_manager.is_intraday_dd_breached(account.equity, account.equity_at_day_start):
         raise LockError(
             f"{LockReason.INTRADAY_DD_STOP.value} — "
@@ -97,7 +140,6 @@ async def check_can_trade(state: RiskState | None = None) -> RiskState:
             f"{risk_manager.intraday_dd_limit_str(account.equity_at_day_start)}"
         )
 
-    # Dynamic daily loss limit (equity-based + optional hard floor)
     if risk_manager.is_daily_loss_breached(state.pnl, account.equity):
         raise LockError(
             f"{LockReason.DAILY_LOSS_LIMIT.value} — "

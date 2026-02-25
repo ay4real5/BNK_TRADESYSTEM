@@ -30,10 +30,13 @@ async def tmp_db(tmp_path):
 @pytest.mark.asyncio
 async def test_check_can_trade_fresh_state(tmp_db):
     """Fresh state should allow trading — mocks account manager (not under test here)."""
+    from app.config import settings
     default_account = AccountState()  # equity=10_000, peak=10_000, consecutive_losses=0
-    with patch(
-        "app.services.locks.account_manager.get_account",
-        new=AsyncMock(return_value=default_account),
+    with (
+        patch("app.services.locks.account_manager.get_account",
+              new=AsyncMock(return_value=default_account)),
+        patch("app.services.news_filter._load_events", return_value=[]),
+        patch.object(settings, "session_gate_enabled", False),
     ):
         state = await locks.check_can_trade(
             state=RiskState(date="2024-01-01")
@@ -54,7 +57,11 @@ async def test_check_can_trade_kill_switch():
 async def test_check_can_trade_max_trades():
     from app.config import settings
     state = RiskState(date="2024-01-01", trades_count=settings.max_trades_per_day)
-    with pytest.raises(LockError) as exc_info:
+    with (
+        pytest.raises(LockError) as exc_info,
+        patch("app.services.news_filter._load_events", return_value=[]),
+        patch.object(settings, "session_gate_enabled", False),
+    ):
         await locks.check_can_trade(state=state)
     assert "max_trades" in str(exc_info.value).lower()
 
@@ -63,7 +70,11 @@ async def test_check_can_trade_max_trades():
 async def test_check_can_trade_max_losses():
     from app.config import settings
     state = RiskState(date="2024-01-01", losses_count=settings.max_losses_per_day)
-    with pytest.raises(LockError) as exc_info:
+    with (
+        pytest.raises(LockError) as exc_info,
+        patch("app.services.news_filter._load_events", return_value=[]),
+        patch.object(settings, "session_gate_enabled", False),
+    ):
         await locks.check_can_trade(state=state)
     assert "max_losses" in str(exc_info.value).lower()
 
@@ -84,7 +95,11 @@ async def test_check_can_trade_cooldown():
 async def test_check_can_trade_daily_dd():
     from app.config import settings
     state = RiskState(date="2024-01-01", drawdown_pct=settings.daily_dd_cap_pct + 0.1)
-    with pytest.raises(LockError) as exc_info:
+    with (
+        pytest.raises(LockError) as exc_info,
+        patch("app.services.news_filter._load_events", return_value=[]),
+        patch.object(settings, "session_gate_enabled", False),
+    ):
         await locks.check_can_trade(state=state)
     assert "drawdown" in str(exc_info.value).lower()
 

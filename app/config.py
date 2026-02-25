@@ -111,6 +111,39 @@ class Settings(BaseSettings):
     ny_open_utc: int = 13
     ny_close_utc: int = 21
 
+    # -----------------------------------------------------------------------
+    # Session gate
+    # -----------------------------------------------------------------------
+    # When enabled, entries are only allowed during London and/or NY windows.
+    # Disable for backtesting or manual overrides.
+    session_gate_enabled: bool = True
+    # Priority window (13–16 UTC): both London and NY open simultaneously.
+    # When True, non-overlap sessions are down-weighted; overlap is preferred.
+    # (Informational only for now — the gate blocks or allows, doesn't scale.)
+    session_prefer_overlap: bool = True
+
+    # -----------------------------------------------------------------------
+    # Volatility gate
+    # -----------------------------------------------------------------------
+    volatility_gate_enabled: bool = True
+    # Minimum ATR(M5, 14) in native price units for entry to be allowed.
+    # Gold moves ~0.5–2.0 USD per M5 bar in a normal session;
+    # below 0.30 = dead market, no edge.
+    atr_min_xauusd: float = 0.30
+    # Silver (XAGUSD) M5 ATR floor in USD.
+    atr_min_xagusd: float = 0.03
+    # Maximum tolerable spread expressed as a fraction of current ATR.
+    # 0.25 = spread must be < 25% of ATR.  Ensures entry edge > transaction cost.
+    spread_atr_max_ratio: float = 0.25
+
+    # -----------------------------------------------------------------------
+    # News blackout gate
+    # -----------------------------------------------------------------------
+    # Minutes to block BEFORE and AFTER a high-impact event.
+    news_blackout_minutes: int = 15
+    # Path to the persisted JSON file of scheduled news events.
+    news_events_file: str = "data/news_events.json"
+
     # Trading mode
     mode: Mode = Mode.ASSIST
 

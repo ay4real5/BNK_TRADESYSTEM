@@ -7,6 +7,7 @@ import asyncio
 from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import RedirectResponse
 from loguru import logger
+from pydantic import BaseModel, Field
 
 from ..config import settings
 from ..data import storage
@@ -390,6 +391,18 @@ async def execute_signal(
     if signal.status not in (SignalStatus.PENDING,):
         await storage.update_signal_status(signal_id, SignalStatus.PENDING)
         signal = await storage.get_signal_by_id(signal_id)
+
+    # 4b. Volatility gate — skip if force=True (manual test)
+    if not force:
+        from ..services.volatility_gate import check_volatility
+        from ..domain.errors import LockError as _LockError
+        try:
+            await check_volatility(signal.symbol)  # type: ignore[arg-type]
+        except _LockError as vol_err:
+            raise HTTPException(
+                status_code=423,  # Locked
+                detail=f"Volatility gate blocked execution: {vol_err.reason}",
+            )
 
     # 5. Execute
     try:
@@ -1800,4 +1813,60 @@ async def analytics_execution_quality(
         ),
     }
 
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  News blackout management
+# ═══════════════════════════════════════════════════════════════════════════
+
+class _NewsEventIn(BaseModel):
+    start: str = Field(..., description="ISO-8601 UTC start time, e.g. '2025-01-20T15:30:00'")
+    end:   str = Field(..., description="ISO-8601 UTC end time,   e.g. '2025-01-20T15:45:00'")
+    description: str = Field(default="", description="Optional label, e.g. 'NFP'")
+
+
+@router.get("/news/events")
+async def list_news_events() -> dict:
+    """Return all scheduled news blackout events (sorted by start time)."""
+    from ..services.news_filter import list_events
+    events = list_events()
+    return {"count": len(events), "events": events}
+
+
+@router.post("/news/events", status_code=201)
+async def add_news_event(body: _NewsEventIn) -> dict:
+    """
+    Schedule a news blackout window.
+
+    The system will refuse new entries in the period
+    [start − blackout_minutes, end + blackout_minutes].
+    """
+    from datetime import datetime
+    from ..services.news_filter import add_event
+    try:
+        start_dt = datetime.fromisoformat(body.start)
+        end_dt   = datetime.fromisoformat(body.end)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=f"Invalid datetime: {exc}")
+    if end_dt <= start_dt:
+        raise HTTPException(status_code=422, detail="end must be after start")
+    evt = add_event(start_dt, end=end_dt, description=body.description)
+    return {"created": True, "event_id": evt["id"]}
+
+
+@router.delete("/news/events/{event_id}", status_code=200)
+async def delete_news_event(event_id: int) -> dict:
+    """Remove a scheduled news blackout event by ID."""
+    from ..services.news_filter import remove_event
+    removed = remove_event(event_id)
+    if not removed:
+        raise HTTPException(status_code=404, detail=f"Event {event_id} not found")
+    return {"deleted": True, "event_id": event_id}
+
+
+@router.post("/news/events/clear-expired", status_code=200)
+async def clear_expired_news_events() -> dict:
+    """Prune all news events whose end time is in the past."""
+    from ..services.news_filter import clear_expired
+    removed_count = clear_expired()
+    return {"cleared": removed_count}
 

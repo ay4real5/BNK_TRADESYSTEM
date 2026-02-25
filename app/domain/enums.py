@@ -72,3 +72,4 @@ class LockReason(str, Enum):
     KILL_SWITCH = "kill_switch"
     HIGH_VOLATILITY = "high_volatility"
     NEWS_FILTER = "news_filter"
+    OUT_OF_SESSION = "outside_trading_session"

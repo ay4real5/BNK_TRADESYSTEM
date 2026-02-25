@@ -110,19 +110,8 @@ async def _demo_execution_job() -> None:
         if not candidates:
             return
 
-        # Session gate — only trade during London (07-16 UTC) or NY (13-21 UTC)
-        now_utc = datetime.now(timezone.utc)
-        hour = now_utc.hour
-        in_london = settings.london_open_utc <= hour < settings.london_close_utc
-        in_ny     = settings.ny_open_utc     <= hour < settings.ny_close_utc
-        if not (in_london or in_ny):
-            logger.debug(
-                "Auto-exec: outside trading session (UTC hour={}), skipping {} candidate(s)",
-                hour, len(candidates),
-            )
-            return
-
         # Load demo/live open trades for the symbol conflict check
+        # (Session gate is enforced inside locks.check_can_trade — no duplicate needed here)
         open_trades = await storage.get_open_trades()
         open_demo_symbols: set[Symbol] = {
             t.symbol for t in open_trades
@@ -138,6 +127,19 @@ async def _demo_execution_job() -> None:
                     signal.symbol.value, signal.id,
                 )
                 continue
+
+            # Volatility gate (per-symbol, fail-open on missing data)
+            try:
+                from ..services.volatility_gate import check_volatility
+                await check_volatility(signal.symbol)
+            except LockError as vol_err:
+                logger.info(
+                    "Auto-exec: volatility gate blocked {} — {}",
+                    signal.symbol.value, vol_err.reason,
+                )
+                continue  # try next candidate; vol gate is per-symbol
+            except Exception:
+                pass  # fail-open
 
             # Risk engine gate
             try:
