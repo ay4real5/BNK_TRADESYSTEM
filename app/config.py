@@ -38,8 +38,8 @@ class Settings(BaseSettings):
 
     # Risk governor
     risk_per_trade_pct: float = 0.5
-    max_trades_per_day: int = 20
-    max_losses_per_day: int = 10
+    max_trades_per_day: int = 2
+    max_losses_per_day: int = 2
     daily_dd_cap_pct: float = 2.0
     cooldown_min_after_loss: int = 30
     max_open_positions: int = 2          # total demo/live positions allowed simultaneously
@@ -144,6 +144,20 @@ class Settings(BaseSettings):
     # Path to the persisted JSON file of scheduled news events.
     news_events_file: str = "data/news_events.json"
 
+    # -----------------------------------------------------------------------
+    # Gold Sniper Model — gold_sniper_pullback_v1
+    # -----------------------------------------------------------------------
+    # When True, evaluate_strategy ignores non-XAUUSD symbols entirely.
+    gold_only_mode: bool = True
+    # Analytics tag written into every TradeIdea produced by this model.
+    gold_sniper_model_type: str = "gold_sniper_pullback_v1"
+    # Minimum R:R enforced inside the rule layer (hard rejection, not just scoring).
+    min_rr_to_execute: float = 1.5
+    # Enable VWAP as a pullback anchor (in addition to EMA20).
+    vwap_enabled: bool = True
+    # How many bars of 15m data to use when detecting swing structure.
+    structure_lookback_candles: int = 10
+
     # Trading mode
     mode: Mode = Mode.ASSIST
 
@@ -189,7 +203,7 @@ class Settings(BaseSettings):
 
     # Minimum strategy score (0–10) required before auto-execution is considered.
     # Signals below this threshold are recorded but never auto-fired.
-    min_score_to_execute: float = 7.5
+    min_score_to_execute: float = 8.0
 
     # How often (seconds) to poll for new signals + try execution in demo mode.
     auto_execute_interval_sec: int = 15

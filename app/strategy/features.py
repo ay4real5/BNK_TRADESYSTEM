@@ -88,3 +88,75 @@ def prev_candle_low(df: pd.DataFrame) -> float:
     if len(df) < 2:
         raise InsufficientDataError("Need at least 2 candles for prev_candle_low")
     return float(df["low"].iloc[-2])
+
+
+def add_vwap(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add session VWAP column using typical price × volume, reset daily.
+
+    If all volume values are zero (synthetic data), uses equal-weight average
+    of typical price so the column is always present and useful.
+
+    Column added: ``vwap``
+    """
+    if len(df) == 0:
+        df["vwap"] = pd.Series(dtype=float)
+        return df
+
+    typical = (df["high"] + df["low"] + df["close"]) / 3.0
+
+    # Group by calendar date to reset VWAP each day
+    dates = df.index.normalize() if hasattr(df.index, "normalize") else pd.to_datetime(
+        df.index
+    ).normalize()
+
+    vwap_values = []
+    for date, group_idx in df.groupby(dates).groups.items():
+        grp_typical = typical.loc[group_idx]
+        vol = df["volume"].loc[group_idx]
+        if vol.sum() > 0:
+            cum_tp_vol = (grp_typical * vol).cumsum()
+            cum_vol = vol.cumsum()
+            daily_vwap = cum_tp_vol / cum_vol
+        else:
+            # Synthetic / zero-volume data: cumulative mean of typical price
+            daily_vwap = grp_typical.expanding().mean()
+        vwap_values.append(daily_vwap)
+
+    df["vwap"] = pd.concat(vwap_values).reindex(df.index)
+    return df
+
+
+def compute_15m_structure(df: pd.DataFrame, lookback: int = 10) -> str:
+    """
+    Identify 15m swing structure over the last ``lookback`` candles.
+
+    Bullish  → current swing high > prior swing high AND
+               current swing low  > prior swing low  (HH + HL)
+    Bearish  → current swing high < prior swing high AND
+               current swing low  < prior swing low  (LH + LL)
+    Neutral  → mixed or insufficient data
+
+    Returns: 'bullish' | 'bearish' | 'neutral'
+    """
+    if len(df) < lookback * 2 + 2:
+        return "neutral"
+
+    recent = df.tail(lookback)
+    prior  = df.iloc[-(lookback * 2):-lookback]
+
+    curr_hh = float(recent["high"].max())
+    curr_ll = float(recent["low"].min())
+    prev_hh = float(prior["high"].max())
+    prev_ll = float(prior["low"].min())
+
+    higher_high = curr_hh > prev_hh
+    higher_low  = curr_ll > prev_ll
+    lower_high  = curr_hh < prev_hh
+    lower_low   = curr_ll < prev_ll
+
+    if higher_high and higher_low:
+        return "bullish"
+    elif lower_high and lower_low:
+        return "bearish"
+    return "neutral"

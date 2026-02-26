@@ -45,6 +45,9 @@ class TradeIdea(BaseModel):
     mode: Mode
     status: SignalStatus = SignalStatus.PENDING
     bias: Bias = Bias.NEUTRAL
+    # Gold Sniper model tagging
+    model_type: str = ""                # e.g. gold_sniper_pullback_v1
+    session_label: str = ""             # london | ny | overlap | unknown
 
     @field_validator("reasons", mode="before")
     @classmethod
@@ -141,6 +144,8 @@ class MarketContext(BaseModel):
     ema20_15m: float = 0.0
     ema50_15m: float = 0.0
     rsi_15m: float = 50.0
+    vwap: float = 0.0               # session VWAP from 15m data
+    structure_15m: str = "neutral"  # bullish | bearish | neutral (swing structure)
     daily_high: float = 0.0
     daily_low: float = 0.0
     session_high: float = 0.0
